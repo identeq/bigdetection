@@ -1,9 +1,14 @@
 import torch.nn as nn
 from mmcv.cnn import ConvModule
 
-from big_detection.mmdet import HEADS
-from big_detection.mmdet import build_linear_layer
-from .bbox_head import BBoxHead
+from big_detection.mmdet.models.builder import HEADS
+from big_detection.mmdet.models.roi_heads.bbox_heads.bbox_head import BBoxHead
+from big_detection.mmdet.models.utils.builder import build_linear_layer
+
+
+# from big_detection.mmdet.models import HEADS
+# from .bbox_head import BBoxHead
+# from ...utils import build_linear_layer
 
 
 @HEADS.register_module()

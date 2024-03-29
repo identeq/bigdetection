@@ -3,8 +3,12 @@ import torch.nn.functional as F
 from mmcv.cnn import ConvModule
 from mmcv.runner import auto_fp16
 
-from ..builder import NECKS
-from .fpn import FPN
+from big_detection.mmdet.models.builder import NECKS
+from big_detection.mmdet.models.necks.fpn import FPN
+
+
+# from ..builder import NECKS
+# from .fpn import FPN
 
 
 @NECKS.register_module()

@@ -1,9 +1,17 @@
 import torch
 
-from big_detection.mmdet import bbox2result, bbox2roi, build_assigner, build_sampler
-from ..builder import HEADS, build_head, build_roi_extractor
-from .base_roi_head import BaseRoIHead
-from .test_mixins import BBoxTestMixin, MaskTestMixin
+from big_detection.mmdet.core.bbox.builder import build_sampler, build_assigner
+from big_detection.mmdet.core.bbox.transforms import bbox2roi, bbox2result
+from big_detection.mmdet.models.builder import HEADS, build_roi_extractor, build_head
+from big_detection.mmdet.models.dense_heads.dense_test_mixins import BBoxTestMixin
+from big_detection.mmdet.models.roi_heads.base_roi_head import BaseRoIHead
+from big_detection.mmdet.models.roi_heads.test_mixins import MaskTestMixin
+
+
+# from big_detection.mmdet.core import bbox2result, bbox2roi, build_assigner, build_sampler
+# from ..builder import HEADS, build_head, build_roi_extractor
+# from .base_roi_head import BaseRoIHead
+# from .test_mixins import BBoxTestMixin, MaskTestMixin
 
 
 @HEADS.register_module()

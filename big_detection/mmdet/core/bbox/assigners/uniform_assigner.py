@@ -1,10 +1,10 @@
 import torch
 
-from ..builder import BBOX_ASSIGNERS
-from ..iou_calculators import build_iou_calculator
-from ..transforms import bbox_xyxy_to_cxcywh
-from .assign_result import AssignResult
-from .base_assigner import BaseAssigner
+from big_detection.mmdet.core.bbox.assigners.assign_result import AssignResult
+from big_detection.mmdet.core.bbox.assigners.base_assigner import BaseAssigner
+from big_detection.mmdet.core.bbox.builder import BBOX_ASSIGNERS
+from big_detection.mmdet.core.bbox.iou_calculators.builder import build_iou_calculator
+from big_detection.mmdet.core.bbox.transforms import bbox_xyxy_to_cxcywh
 
 
 @BBOX_ASSIGNERS.register_module()

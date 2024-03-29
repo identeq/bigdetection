@@ -9,10 +9,10 @@ from mmcv.runner import (HOOKS, DistSamplerSeedHook, EpochBasedRunner,
                          build_runner)
 from mmcv.utils import build_from_cfg
 
-from big_detection.mmdet import DistEvalHook, EvalHook
-from big_detection.mmdet import (build_dataloader, build_dataset,
-                                 replace_ImageToTensor)
-from big_detection.mmdet import get_root_logger
+from big_detection.mmdet.core.evaluation.eval_hooks import DistEvalHook, EvalHook
+from big_detection.mmdet.datasets.builder import build_dataloader, build_dataset
+from big_detection.mmdet.datasets.utils import replace_ImageToTensor
+from big_detection.mmdet.utils.logger import get_root_logger
 
 try:
     import apex

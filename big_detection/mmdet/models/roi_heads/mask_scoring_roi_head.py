@@ -1,8 +1,13 @@
 import torch
 
-from big_detection.mmdet import bbox2roi
-from ..builder import HEADS, build_head
-from .standard_roi_head import StandardRoIHead
+from big_detection.mmdet.core.bbox.transforms import bbox2roi
+from big_detection.mmdet.models.builder import HEADS, build_head
+from big_detection.mmdet.models.roi_heads.standard_roi_head import StandardRoIHead
+
+
+# from big_detection.mmdet.core import bbox2roi
+# from ..builder import HEADS, build_head
+# from .standard_roi_head import StandardRoIHead
 
 
 @HEADS.register_module()

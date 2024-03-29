@@ -12,10 +12,16 @@ from mmcv.parallel import MMDataParallel, MMDistributedDataParallel
 from mmcv.runner import (get_dist_info, init_dist, load_checkpoint,
                          wrap_fp16_model)
 
-from big_detection.mmdet import multi_gpu_test, single_gpu_test
-from big_detection.mmdet import (build_dataloader, build_dataset,
-                                 replace_ImageToTensor)
-from big_detection.mmdet import build_detector
+from big_detection.mmdet.apis.test import multi_gpu_test, single_gpu_test
+from big_detection.mmdet.datasets.builder import build_dataset, build_dataloader
+from big_detection.mmdet.datasets.utils import replace_ImageToTensor
+from big_detection.mmdet.models.builder import build_detector
+
+
+# from big_detection.mmdet import multi_gpu_test, single_gpu_test
+# from big_detection.mmdet import (build_dataloader, build_dataset,
+#                                  replace_ImageToTensor)
+# from big_detection.mmdet import build_detector
 
 
 def parse_args():

@@ -2,10 +2,16 @@ import numpy as np
 import torch
 from mmcv.runner import force_fp32
 
-from big_detection.mmdet import multi_apply, multiclass_nms
-from big_detection.mmdet.core.bbox.iou_calculators import bbox_overlaps
-from big_detection.mmdet import HEADS
-from big_detection.mmdet.models.dense_heads import ATSSHead
+from big_detection.mmdet.core.bbox.iou_calculators.iou2d_calculator import bbox_overlaps
+from big_detection.mmdet.core.post_processing.bbox_nms import multiclass_nms
+from big_detection.mmdet.core.utils.misc import multi_apply
+from big_detection.mmdet.models.builder import HEADS
+from big_detection.mmdet.models.dense_heads.atss_head import ATSSHead
+
+# from big_detection.mmdet.core import multi_apply, multiclass_nms
+# from big_detection.mmdet.core.bbox.iou_calculators import bbox_overlaps
+# from big_detection.mmdet.models import HEADS
+# from big_detection.mmdet.models.dense_heads import ATSSHead
 
 EPS = 1e-12
 try:

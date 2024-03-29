@@ -12,11 +12,13 @@ import torch.utils.checkpoint as checkpoint
 import numpy as np
 from timm.models.layers import DropPath, to_2tuple, trunc_normal_
 
-from mmcv_custom import load_checkpoint
-from big_detection.mmdet import get_root_logger
-from ..builder import BACKBONES
 
 from mmcv.runner import BaseModule
+
+from big_detection.mmcv_custom.checkpoint import load_checkpoint
+from big_detection.mmdet.models.builder import BACKBONES
+from big_detection.mmdet.utils.logger import get_root_logger
+
 
 class Mlp(nn.Module):
     """ Multilayer perceptron."""

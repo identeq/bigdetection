@@ -4,8 +4,12 @@ import torch.nn.functional as F
 from mmcv.cnn import constant_init, xavier_init
 from mmcv.runner import BaseModule, ModuleList
 
-from ..builder import NECKS, build_backbone
-from .fpn import FPN
+from big_detection.mmdet.models.builder import NECKS, build_backbone
+from big_detection.mmdet.models.necks.fpn import FPN
+
+
+# from ..builder import NECKS, build_backbone
+# from .fpn import FPN
 
 
 class ASPP(BaseModule):

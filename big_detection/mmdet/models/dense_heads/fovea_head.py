@@ -4,9 +4,14 @@ from mmcv.cnn import ConvModule
 from mmcv.ops import DeformConv2d
 from mmcv.runner import BaseModule
 
-from big_detection.mmdet import multi_apply, multiclass_nms
-from ..builder import HEADS
-from .anchor_free_head import AnchorFreeHead
+from big_detection.mmdet.core.post_processing.bbox_nms import multiclass_nms
+from big_detection.mmdet.core.utils.misc import multi_apply
+from big_detection.mmdet.models.builder import HEADS
+from big_detection.mmdet.models.dense_heads.anchor_free_head import AnchorFreeHead
+
+# from big_detection.mmdet.core import multi_apply, multiclass_nms
+# from ..builder import HEADS
+# from .anchor_free_head import AnchorFreeHead
 
 INF = 1e8
 

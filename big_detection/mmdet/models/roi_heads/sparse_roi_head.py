@@ -1,9 +1,14 @@
 import torch
 
-from big_detection.mmdet import bbox2result, bbox2roi, bbox_xyxy_to_cxcywh
-from big_detection.mmdet import PseudoSampler
-from ..builder import HEADS
-from .cascade_roi_head import CascadeRoIHead
+from big_detection.mmdet.core.bbox.samplers.pseudo_sampler import PseudoSampler
+from big_detection.mmdet.core.bbox.transforms import bbox_xyxy_to_cxcywh, bbox2roi, bbox2result
+from big_detection.mmdet.models.builder import HEADS
+from big_detection.mmdet.models.roi_heads.cascade_roi_head import CascadeRoIHead
+
+
+# from big_detection.mmdet.core import bbox2result, bbox2roi, bbox_xyxy_to_cxcywh, PseudoSampler
+# from ..builder import HEADS
+# from .cascade_roi_head import CascadeRoIHead
 
 
 @HEADS.register_module()

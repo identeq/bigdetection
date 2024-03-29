@@ -3,8 +3,8 @@ import copy
 import torch.nn as nn
 from mmcv.cnn import ConvModule, Scale
 
+from big_detection.mmdet.models.builder import HEADS
 from big_detection.mmdet.models.dense_heads.fcos_head import FCOSHead
-from ..builder import HEADS
 
 
 @HEADS.register_module()

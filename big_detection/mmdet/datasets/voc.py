@@ -2,9 +2,10 @@ from collections import OrderedDict
 
 from mmcv.utils import print_log
 
-from mmdet.core import eval_map, eval_recalls
-from .builder import DATASETS
-from .xml_style import XMLDataset
+from big_detection.mmdet.core.evaluation.mean_ap import eval_map
+from big_detection.mmdet.core.evaluation.recall import eval_recalls
+from big_detection.mmdet.datasets.builder import DATASETS
+from big_detection.mmdet.datasets.xml_style import XMLDataset
 
 
 @DATASETS.register_module()

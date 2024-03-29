@@ -3,8 +3,12 @@ from mmcv.cnn import ConvModule
 from mmcv.runner import BaseModule, ModuleList
 
 from big_detection.mmdet.models.backbones.resnet import Bottleneck
-from big_detection.mmdet import HEADS
-from .bbox_head import BBoxHead
+from big_detection.mmdet.models.builder import HEADS
+from big_detection.mmdet.models.roi_heads.bbox_heads.bbox_head import BBoxHead
+
+
+# from big_detection.mmdet.models import HEADS
+# from .bbox_head import BBoxHead
 
 
 class BasicResBlock(BaseModule):

@@ -1,9 +1,14 @@
 import numpy as np
 import torch
 
-from big_detection.mmdet import bbox2result, bbox2roi
-from ..builder import HEADS, build_head, build_roi_extractor
-from .standard_roi_head import StandardRoIHead
+from big_detection.mmdet.core.bbox.transforms import bbox2roi, bbox2result
+from big_detection.mmdet.models.builder import HEADS, build_roi_extractor, build_head
+from big_detection.mmdet.models.roi_heads.standard_roi_head import StandardRoIHead
+
+
+# from big_detection.mmdet.core import bbox2result, bbox2roi
+# from ..builder import HEADS, build_head, build_roi_extractor
+# from .standard_roi_head import StandardRoIHead
 
 
 @HEADS.register_module()

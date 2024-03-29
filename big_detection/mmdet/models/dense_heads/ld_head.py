@@ -1,10 +1,18 @@
 import torch
 from mmcv.runner import force_fp32
 
-from mmdet.core import (bbox2distance, bbox_overlaps, distance2bbox,
-                        multi_apply, reduce_mean)
-from ..builder import HEADS, build_loss
-from .gfl_head import GFLHead
+from big_detection.mmdet.core.bbox.iou_calculators.iou2d_calculator import bbox_overlaps
+from big_detection.mmdet.core.bbox.transforms import bbox2distance, distance2bbox
+from big_detection.mmdet.core.utils.dist_utils import reduce_mean
+from big_detection.mmdet.core.utils.misc import multi_apply
+from big_detection.mmdet.models.builder import HEADS, build_loss
+from big_detection.mmdet.models.dense_heads.gfl_head import GFLHead
+
+
+# from big_detection.mmdet.core import (bbox2distance, bbox_overlaps, distance2bbox,
+#                                       multi_apply, reduce_mean)
+# from .gfl_head import GFLHead
+# from ..builder import HEADS, build_loss
 
 
 @HEADS.register_module()
@@ -239,16 +247,16 @@ class LDHead(GFLHead):
 
         losses_cls, losses_bbox, losses_dfl, losses_ld, \
             avg_factor = multi_apply(
-                self.loss_single,
-                anchor_list,
-                cls_scores,
-                bbox_preds,
-                labels_list,
-                label_weights_list,
-                bbox_targets_list,
-                self.anchor_generator.strides,
-                soft_target,
-                num_total_samples=num_total_samples)
+            self.loss_single,
+            anchor_list,
+            cls_scores,
+            bbox_preds,
+            labels_list,
+            label_weights_list,
+            bbox_targets_list,
+            self.anchor_generator.strides,
+            soft_target,
+            num_total_samples=num_total_samples)
 
         avg_factor = sum(avg_factor) + 1e-6
         avg_factor = reduce_mean(avg_factor).item()

@@ -10,7 +10,7 @@ import torch.distributed as dist
 from mmcv.image import tensor2imgs
 from mmcv.runner import get_dist_info
 
-from big_detection.mmdet import encode_mask_results
+from big_detection.mmdet.core.mask.utils import encode_mask_results
 
 
 def single_gpu_test(model,

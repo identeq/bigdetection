@@ -4,13 +4,20 @@ from mmcv.cnn import bias_init_with_prob, normal_init
 from mmcv.ops import batched_nms
 from mmcv.runner import force_fp32
 
-from big_detection.mmdet import multi_apply
-from big_detection.mmdet import HEADS, build_loss
-from big_detection.mmdet import gaussian_radius, gen_gaussian_target
-from ..utils.gaussian_target import (get_local_maximum, get_topk_from_heatmap,
-                                     transpose_and_gather_feat)
-from .base_dense_head import BaseDenseHead
-from .dense_test_mixins import BBoxTestMixin
+from big_detection.mmdet.core.utils.misc import multi_apply
+from big_detection.mmdet.models.builder import HEADS, build_loss
+from big_detection.mmdet.models.dense_heads.base_dense_head import BaseDenseHead
+from big_detection.mmdet.models.dense_heads.dense_test_mixins import BBoxTestMixin
+from big_detection.mmdet.models.utils.gaussian_target import gen_gaussian_target, gaussian_radius, get_local_maximum, \
+    get_topk_from_heatmap, transpose_and_gather_feat
+
+
+# from .. import HEADS, build_loss
+# from ..utils.gaussian_target import (get_local_maximum, get_topk_from_heatmap,
+#                                      transpose_and_gather_feat, gaussian_radius, gen_gaussian_target)
+# from .base_dense_head import BaseDenseHead
+# from .dense_test_mixins import BBoxTestMixin
+# from ...core import multi_apply
 
 
 @HEADS.register_module()

@@ -4,8 +4,8 @@ import warnings
 import numpy as np
 import torch
 
-from big_detection.mmdet import bbox2result
-from big_detection.mmdet import BaseDetector
+from big_detection.mmdet.core.bbox.transforms import bbox2result
+from big_detection.mmdet.models.detectors.base import BaseDetector
 
 
 class DeployBaseDetector(BaseDetector):

@@ -1,7 +1,7 @@
 import numpy as np
 import torch
 
-from big_detection.mmdet import ensure_rng
+from big_detection.mmdet.utils.util_random import ensure_rng
 
 
 def random_boxes(num=1, scale=1, rng=None):

@@ -3,7 +3,10 @@ from mmcv.cnn import (ConvModule, caffe2_xavier_init, constant_init, is_norm,
                       normal_init)
 from torch.nn import BatchNorm2d
 
-from ..builder import NECKS
+from big_detection.mmdet.models.builder import NECKS
+
+
+# from ..builder import NECKS
 
 
 class Bottleneck(nn.Module):

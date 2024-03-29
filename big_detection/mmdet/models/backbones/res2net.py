@@ -6,9 +6,13 @@ import torch.utils.checkpoint as cp
 from mmcv.cnn import build_conv_layer, build_norm_layer
 from mmcv.runner import Sequential
 
-from ..builder import BACKBONES
-from .resnet import Bottleneck as _Bottleneck
-from .resnet import ResNet
+from big_detection.mmdet.models.backbones.resnet import Bottleneck as _Bottleneck, ResNet
+from big_detection.mmdet.models.builder import BACKBONES
+
+
+# from ..builder import BACKBONES
+# from .resnet import Bottleneck as _Bottleneck
+# from .resnet import ResNet
 
 
 class Bottle2neck(_Bottleneck):
@@ -279,7 +283,7 @@ class Res2Net(ResNet):
             Default: None
 
     Example:
-        >>> from mmdet.models import Res2Net
+        >>> from big_detection.mmdet.models.backbones.res2net import Res2Net
         >>> import torch
         >>> self = Res2Net(depth=50, scales=4, base_width=26)
         >>> self.eval()

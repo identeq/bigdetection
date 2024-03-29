@@ -3,7 +3,10 @@ from mmcv.cnn import ConvModule, build_upsample_layer, xavier_init
 from mmcv.ops.carafe import CARAFEPack
 from mmcv.runner import BaseModule, ModuleList
 
-from ..builder import NECKS
+from big_detection.mmdet.models.builder import NECKS
+
+
+# from ..builder import NECKS
 
 
 @NECKS.register_module()

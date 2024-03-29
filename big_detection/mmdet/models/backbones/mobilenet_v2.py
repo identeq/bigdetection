@@ -5,8 +5,9 @@ from mmcv.cnn import ConvModule
 from mmcv.runner import BaseModule
 from torch.nn.modules.batchnorm import _BatchNorm
 
-from ..builder import BACKBONES
-from ..utils import InvertedResidual, make_divisible
+from big_detection.mmdet.models.builder import BACKBONES
+from big_detection.mmdet.models.utils.inverted_residual import InvertedResidual
+from big_detection.mmdet.models.utils.make_divisible import make_divisible
 
 
 @BACKBONES.register_module()

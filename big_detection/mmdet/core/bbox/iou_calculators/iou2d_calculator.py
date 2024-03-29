@@ -1,6 +1,6 @@
 import torch
 
-from .builder import IOU_CALCULATORS
+from big_detection.mmdet.core.bbox.iou_calculators.builder import IOU_CALCULATORS
 
 
 def cast_tensor_type(x, scale=1., dtype=None):

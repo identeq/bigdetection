@@ -1,6 +1,6 @@
 import numpy as np
 
-from ..builder import PIPELINES
+from big_detection.mmdet.datasets.builder import PIPELINES
 
 
 @PIPELINES.register_module()

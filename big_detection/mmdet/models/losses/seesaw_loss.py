@@ -2,10 +2,16 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from ..builder import LOSSES
-from .accuracy import accuracy
-from .cross_entropy_loss import cross_entropy
-from .utils import weight_reduce_loss
+from big_detection.mmdet.models.builder import LOSSES
+from big_detection.mmdet.models.losses.accuracy import accuracy
+from big_detection.mmdet.models.losses.cross_entropy_loss import cross_entropy
+from big_detection.mmdet.models.losses.utils import weight_reduce_loss
+
+
+# from ..builder import LOSSES
+# from .accuracy import accuracy
+# from .cross_entropy_loss import cross_entropy
+# from .utils import weight_reduce_loss
 
 
 def seesaw_ce_loss(cls_score,

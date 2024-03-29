@@ -1,11 +1,15 @@
 import math
 
 from mmcv.cnn import build_conv_layer, build_norm_layer
+from big_detection.mmdet.models.backbones.resnet import Bottleneck as _Bottleneck, ResNet
+from big_detection.mmdet.models.builder import BACKBONES
+from big_detection.mmdet.models.utils.res_layer import ResLayer
 
-from ..builder import BACKBONES
-from ..utils import ResLayer
-from .resnet import Bottleneck as _Bottleneck
-from .resnet import ResNet
+
+# from ..builder import BACKBONES
+# from ..utils import ResLayer
+# from .resnet import Bottleneck as _Bottleneck
+# from .resnet import ResNet
 
 
 class Bottleneck(_Bottleneck):

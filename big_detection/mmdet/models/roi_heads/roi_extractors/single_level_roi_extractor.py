@@ -1,8 +1,12 @@
 import torch
 from mmcv.runner import force_fp32
 
-from big_detection.mmdet import ROI_EXTRACTORS
-from .base_roi_extractor import BaseRoIExtractor
+from big_detection.mmdet.models.builder import ROI_EXTRACTORS
+from big_detection.mmdet.models.roi_heads.roi_extractors.base_roi_extractor import BaseRoIExtractor
+
+
+# from big_detection.mmdet.models import ROI_EXTRACTORS
+# from .base_roi_extractor import BaseRoIExtractor
 
 
 @ROI_EXTRACTORS.register_module()

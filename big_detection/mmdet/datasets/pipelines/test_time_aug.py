@@ -2,8 +2,8 @@ import warnings
 
 import mmcv
 
-from ..builder import PIPELINES
-from .compose import Compose
+from big_detection.mmdet.datasets.builder import PIPELINES
+from big_detection.mmdet.datasets.pipelines.compose import Compose
 
 
 @PIPELINES.register_module()

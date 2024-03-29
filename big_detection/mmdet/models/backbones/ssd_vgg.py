@@ -4,8 +4,8 @@ import torch.nn as nn
 from mmcv.cnn import VGG
 from mmcv.runner import BaseModule
 
-from ..builder import BACKBONES
-from ..necks import ssd_neck
+from big_detection.mmdet.models.builder import BACKBONES
+from big_detection.mmdet.models.necks import ssd_neck
 
 
 @BACKBONES.register_module()

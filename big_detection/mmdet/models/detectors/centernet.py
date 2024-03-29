@@ -1,9 +1,15 @@
 import torch
 
-from big_detection.mmdet import bbox2result
-from big_detection.mmdet import DETECTORS
-from ...core.utils import flip_tensor
-from .single_stage import SingleStageDetector
+from big_detection.mmdet.core.bbox.transforms import bbox2result
+from big_detection.mmdet.core.utils.misc import flip_tensor
+from big_detection.mmdet.models.builder import DETECTORS
+from big_detection.mmdet.models.detectors.single_stage import SingleStageDetector
+
+
+# from big_detection.mmdet.core import bbox2result
+# from big_detection.mmdet.models import DETECTORS
+# from ...core.utils import flip_tensor
+# from .single_stage import SingleStageDetector
 
 
 @DETECTORS.register_module()

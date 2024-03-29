@@ -1,7 +1,11 @@
 import torch
 
-from ..builder import DETECTORS
-from .single_stage import SingleStageDetector
+from big_detection.mmdet.models.builder import DETECTORS
+from big_detection.mmdet.models.detectors.single_stage import SingleStageDetector
+
+
+# from ..builder import DETECTORS
+# from .single_stage import SingleStageDetector
 
 
 @DETECTORS.register_module()

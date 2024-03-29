@@ -5,7 +5,7 @@ import pycocotools.mask as mask_util
 from matplotlib.collections import PatchCollection
 from matplotlib.patches import Polygon
 
-from ..utils import mask2ndarray
+from big_detection.mmdet.core.utils.misc import mask2ndarray
 
 EPS = 1e-2
 

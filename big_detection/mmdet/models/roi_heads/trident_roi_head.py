@@ -1,10 +1,17 @@
 import torch
 from mmcv.ops import batched_nms
 
-from big_detection.mmdet import (bbox2result, bbox2roi, bbox_mapping, merge_aug_bboxes,
-                                 multiclass_nms)
-from big_detection.mmdet import StandardRoIHead
-from ..builder import HEADS
+from big_detection.mmdet.core.bbox.transforms import bbox2result, bbox_mapping, bbox2roi
+from big_detection.mmdet.core.post_processing.bbox_nms import multiclass_nms
+from big_detection.mmdet.core.post_processing.merge_augs import merge_aug_bboxes
+from big_detection.mmdet.models.builder import HEADS
+from big_detection.mmdet.models.roi_heads.standard_roi_head import StandardRoIHead
+
+
+# from big_detection.mmdet.core import (bbox2result, bbox2roi, bbox_mapping, merge_aug_bboxes,
+#                                       multiclass_nms)
+# from .. import StandardRoIHead
+# from ..builder import HEADS
 
 
 @HEADS.register_module()
@@ -27,7 +34,7 @@ class TridentRoIHead(StandardRoIHead):
         """Merge bbox predictions of each branch."""
         if trident_det_bboxes.numel() == 0:
             det_bboxes = trident_det_bboxes.new_zeros((0, 5))
-            det_labels = trident_det_bboxes.new_zeros((0, ), dtype=torch.long)
+            det_labels = trident_det_bboxes.new_zeros((0,), dtype=torch.long)
         else:
             nms_bboxes = trident_det_bboxes[:, :4]
             nms_scores = trident_det_bboxes[:, 4].contiguous()
@@ -66,9 +73,9 @@ class TridentRoIHead(StandardRoIHead):
         for i in range(len(img_metas) // num_branch):
             det_result = self.merge_trident_bboxes(
                 torch.cat(det_bboxes_list[i * num_branch:(i + 1) *
-                                          num_branch]),
+                                                         num_branch]),
                 torch.cat(det_labels_list[i * num_branch:(i + 1) *
-                                          num_branch]))
+                                                         num_branch]))
             det_bboxes.append(det_result[0])
             det_labels.append(det_result[1])
 

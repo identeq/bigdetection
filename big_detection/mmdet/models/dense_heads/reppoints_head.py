@@ -4,11 +4,19 @@ import torch.nn as nn
 from mmcv.cnn import ConvModule
 from mmcv.ops import DeformConv2d
 
-from mmdet.core import (build_assigner, build_sampler, images_to_levels,
-                        multi_apply, multiclass_nms, unmap)
-from mmdet.core.anchor.point_generator import MlvlPointGenerator
-from ..builder import HEADS, build_loss
-from .anchor_free_head import AnchorFreeHead
+# from big_detection.mmdet.core import (build_assigner, build_sampler, images_to_levels,
+#                                       multi_apply, multiclass_nms, unmap)
+from big_detection.mmdet.core.anchor.point_generator import MlvlPointGenerator
+from big_detection.mmdet.core.anchor.utils import images_to_levels
+from big_detection.mmdet.core.bbox.builder import build_assigner, build_sampler
+from big_detection.mmdet.core.post_processing.bbox_nms import multiclass_nms
+from big_detection.mmdet.core.utils.misc import multi_apply, unmap
+from big_detection.mmdet.models.builder import HEADS, build_loss
+from big_detection.mmdet.models.dense_heads.anchor_free_head import AnchorFreeHead
+
+
+# from .anchor_free_head import AnchorFreeHead
+# from ..builder import HEADS, build_loss
 
 
 @HEADS.register_module()
@@ -177,9 +185,9 @@ class RepPointsHead(AnchorFreeHead):
         """
         pts_reshape = pts.view(pts.shape[0], -1, 2, *pts.shape[2:])
         pts_y = pts_reshape[:, :, 0, ...] if y_first else pts_reshape[:, :, 1,
-                                                                      ...]
+                                                          ...]
         pts_x = pts_reshape[:, :, 1, ...] if y_first else pts_reshape[:, :, 0,
-                                                                      ...]
+                                                          ...]
         if self.transform_method == 'minmax':
             bbox_left = pts_x.min(dim=1, keepdim=True)[0]
             bbox_right = pts_x.max(dim=1, keepdim=True)[0]
@@ -202,7 +210,7 @@ class RepPointsHead(AnchorFreeHead):
             pts_y_std = torch.std(pts_y - pts_y_mean, dim=1, keepdim=True)
             pts_x_std = torch.std(pts_x - pts_x_mean, dim=1, keepdim=True)
             moment_transfer = (self.moment_transfer * self.moment_mul) + (
-                self.moment_transfer.detach() * (1 - self.moment_mul))
+                    self.moment_transfer.detach() * (1 - self.moment_mul))
             moment_width_transfer = moment_transfer[0]
             moment_height_transfer = moment_transfer[1]
             half_width = pts_x_std * torch.exp(moment_width_transfer)
@@ -211,7 +219,7 @@ class RepPointsHead(AnchorFreeHead):
                 pts_x_mean - half_width, pts_y_mean - half_height,
                 pts_x_mean + half_width, pts_y_mean + half_height
             ],
-                             dim=1)
+                dim=1)
         else:
             raise NotImplementedError
         return bbox
@@ -372,7 +380,7 @@ class RepPointsHead(AnchorFreeHead):
                              unmap_outputs=True):
         inside_flags = valid_flags
         if not inside_flags.any():
-            return (None, ) * 7
+            return (None,) * 7
         # assign gt and sample proposals
         proposals = flat_proposals[inside_flags, :]
 
@@ -391,7 +399,7 @@ class RepPointsHead(AnchorFreeHead):
         bbox_gt = proposals.new_zeros([num_valid_proposals, 4])
         pos_proposals = torch.zeros_like(proposals)
         proposals_weights = proposals.new_zeros([num_valid_proposals, 4])
-        labels = proposals.new_full((num_valid_proposals, ),
+        labels = proposals.new_full((num_valid_proposals,),
                                     self.num_classes,
                                     dtype=torch.long)
         label_weights = proposals.new_zeros(
@@ -492,14 +500,14 @@ class RepPointsHead(AnchorFreeHead):
             gt_labels_list = [None for _ in range(num_imgs)]
         (all_labels, all_label_weights, all_bbox_gt, all_proposals,
          all_proposal_weights, pos_inds_list, neg_inds_list) = multi_apply(
-             self._point_target_single,
-             proposals_list,
-             valid_flag_list,
-             gt_bboxes_list,
-             gt_bboxes_ignore_list,
-             gt_labels_list,
-             stage=stage,
-             unmap_outputs=unmap_outputs)
+            self._point_target_single,
+            proposals_list,
+            valid_flag_list,
+            gt_bboxes_list,
+            gt_bboxes_ignore_list,
+            gt_labels_list,
+            stage=stage,
+            unmap_outputs=unmap_outputs)
         # no valid points
         if any([labels is None for labels in all_labels]):
             return None

@@ -4,9 +4,14 @@ import mmcv
 import torch
 import torch.nn as nn
 
-from big_detection.mmdet import bbox_overlaps
-from ..builder import LOSSES
-from .utils import weighted_loss
+from big_detection.mmdet.core.bbox.iou_calculators.iou2d_calculator import bbox_overlaps
+from big_detection.mmdet.models.builder import LOSSES
+from big_detection.mmdet.models.losses.utils import weighted_loss
+
+
+# from big_detection.mmdet.core import bbox_overlaps
+# from ..builder import LOSSES
+# from .utils import weighted_loss
 
 
 @mmcv.jit(derivate=True, coderize=True)

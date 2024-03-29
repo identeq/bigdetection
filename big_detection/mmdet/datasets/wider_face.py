@@ -3,8 +3,8 @@ import xml.etree.ElementTree as ET
 
 import mmcv
 
-from .builder import DATASETS
-from .xml_style import XMLDataset
+from big_detection.mmdet.datasets.builder import DATASETS
+from big_detection.mmdet.datasets.xml_style import XMLDataset
 
 
 @DATASETS.register_module()

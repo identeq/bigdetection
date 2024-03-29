@@ -1,7 +1,10 @@
 import torch.nn as nn
 from mmcv.runner import BaseModule, auto_fp16
 
-from big_detection.mmdet import HEADS
+from big_detection.mmdet.models.builder import HEADS
+
+
+# from big_detection.mmdet.models import HEADS
 
 
 @HEADS.register_module()

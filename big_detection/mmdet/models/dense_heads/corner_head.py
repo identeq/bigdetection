@@ -7,14 +7,22 @@ from mmcv.cnn import ConvModule, bias_init_with_prob
 from mmcv.ops import CornerPool, batched_nms
 from mmcv.runner import BaseModule
 
-from big_detection.mmdet import multi_apply
-from ..builder import HEADS, build_loss
-from ..utils import gaussian_radius, gen_gaussian_target
-from ..utils.gaussian_target import (gather_feat, get_local_maximum,
-                                     get_topk_from_heatmap,
-                                     transpose_and_gather_feat)
-from .base_dense_head import BaseDenseHead
-from .dense_test_mixins import BBoxTestMixin
+from big_detection.mmdet.core.utils.misc import multi_apply
+from big_detection.mmdet.models.builder import HEADS, build_loss
+from big_detection.mmdet.models.dense_heads.base_dense_head import BaseDenseHead
+from big_detection.mmdet.models.dense_heads.dense_test_mixins import BBoxTestMixin
+from big_detection.mmdet.models.utils.gaussian_target import gaussian_radius, gen_gaussian_target, \
+    get_topk_from_heatmap, transpose_and_gather_feat, get_local_maximum, gather_feat
+
+
+# from ...core import multi_apply
+# from ..builder import HEADS, build_loss
+# from ..utils import gaussian_radius, gen_gaussian_target
+# from ..utils.gaussian_target import (gather_feat, get_local_maximum,
+#                                      get_topk_from_heatmap,
+#                                      transpose_and_gather_feat)
+# from .base_dense_head import BaseDenseHead
+# from .dense_test_mixins import BBoxTestMixin
 
 
 class BiCornerPool(BaseModule):

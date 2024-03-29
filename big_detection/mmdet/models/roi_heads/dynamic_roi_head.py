@@ -1,10 +1,15 @@
 import numpy as np
 import torch
 
-from big_detection.mmdet import bbox2roi
-from big_detection.mmdet import SmoothL1Loss
-from ..builder import HEADS
-from .standard_roi_head import StandardRoIHead
+from big_detection.mmdet.core.bbox.transforms import bbox2roi
+from big_detection.mmdet.models.builder import HEADS
+from big_detection.mmdet.models.losses.smooth_l1_loss import SmoothL1Loss
+from big_detection.mmdet.models.roi_heads.standard_roi_head import StandardRoIHead
+
+# from big_detection.mmdet.core import bbox2roi
+# from .. import SmoothL1Loss
+# from ..builder import HEADS
+# from .standard_roi_head import StandardRoIHead
 
 EPS = 1e-15
 

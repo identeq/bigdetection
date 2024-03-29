@@ -5,7 +5,10 @@ import mmcv
 import torch
 from ts.torch_handler.base_handler import BaseHandler
 
-from big_detection.mmdet import inference_detector, init_detector
+from big_detection.mmdet.apis.inference import init_detector, inference_detector
+
+
+# from big_detection.mmdet.apis import init_detector, inference_detector
 
 
 class MMdetHandler(BaseHandler):

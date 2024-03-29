@@ -3,9 +3,9 @@ import torch.nn.functional as F
 from mmcv.cnn import ConvModule
 from mmcv.runner import BaseModule
 
-from ..builder import BACKBONES
-from ..utils import ResLayer
-from .resnet import BasicBlock
+from big_detection.mmdet.models.backbones.resnet import BasicBlock
+from big_detection.mmdet.models.builder import BACKBONES
+from big_detection.mmdet.models.utils.res_layer import ResLayer
 
 
 class HourglassModule(BaseModule):
@@ -115,7 +115,7 @@ class HourglassNet(BaseModule):
             Default: None
 
     Example:
-        >>> from big_detection.mmdet import HourglassNet
+        >>> from big_detection.mmdet.models.backbones.hourglass import HourglassNet
         >>> import torch
         >>> self = HourglassNet()
         >>> self.eval()

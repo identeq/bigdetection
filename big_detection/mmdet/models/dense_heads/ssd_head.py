@@ -4,11 +4,19 @@ import torch.nn.functional as F
 from mmcv.cnn import ConvModule, DepthwiseSeparableConvModule
 from mmcv.runner import force_fp32
 
-from big_detection.mmdet import (build_anchor_generator, build_assigner,
-                                 build_bbox_coder, build_sampler, multi_apply)
-from ..builder import HEADS
-from ..losses import smooth_l1_loss
-from .anchor_head import AnchorHead
+from big_detection.mmdet.core.anchor.builder import build_anchor_generator
+from big_detection.mmdet.core.bbox.builder import build_bbox_coder, build_assigner, build_sampler
+from big_detection.mmdet.core.utils.misc import multi_apply
+from big_detection.mmdet.models.builder import HEADS
+from big_detection.mmdet.models.dense_heads.anchor_head import AnchorHead
+from big_detection.mmdet.models.losses.smooth_l1_loss import smooth_l1_loss
+
+
+# from big_detection.mmdet.core import (build_anchor_generator, build_assigner,
+#                                  build_bbox_coder, build_sampler, multi_apply)
+# from ..builder import HEADS
+# from ..losses import smooth_l1_loss
+# from .anchor_head import AnchorHead
 
 
 # TODO: add loss evaluator for SSD

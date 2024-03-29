@@ -2,8 +2,12 @@ import torch.nn as nn
 from mmcv.cnn import ConvModule
 from mmcv.ops import MaskedConv2d
 
-from ..builder import HEADS
-from .guided_anchor_head import FeatureAdaption, GuidedAnchorHead
+from big_detection.mmdet.models.builder import HEADS
+from big_detection.mmdet.models.dense_heads.guided_anchor_head import GuidedAnchorHead, FeatureAdaption
+
+
+# from ..builder import HEADS
+# from .guided_anchor_head import FeatureAdaption, GuidedAnchorHead
 
 
 @HEADS.register_module()

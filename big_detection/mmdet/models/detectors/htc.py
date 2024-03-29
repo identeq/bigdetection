@@ -1,5 +1,5 @@
-from ..builder import DETECTORS
-from .cascade_rcnn import CascadeRCNN
+from big_detection.mmdet.models.builder import DETECTORS
+from big_detection.mmdet.models.detectors.cascade_rcnn import CascadeRCNN
 
 
 @DETECTORS.register_module()

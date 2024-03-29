@@ -1,6 +1,6 @@
 import torch
 
-from big_detection.mmdet import util_mixins
+from big_detection.mmdet.utils import util_mixins
 
 
 class SamplingResult(util_mixins.NiceRepr):
@@ -111,9 +111,11 @@ class SamplingResult(util_mixins.NiceRepr):
             >>> self = SamplingResult.random()
             >>> print(self.__dict__)
         """
-        from big_detection.mmdet import RandomSampler
-        from big_detection.mmdet.core.bbox.assigners import AssignResult
-        from big_detection.mmdet import demodata
+
+        from big_detection.mmdet.core.bbox import demodata
+        from big_detection.mmdet.core.bbox.samplers.random_sampler import RandomSampler
+        from big_detection.mmdet.core.bbox.assigners.assign_result import AssignResult
+
         rng = demodata.ensure_rng(rng)
 
         # make probabalistic?

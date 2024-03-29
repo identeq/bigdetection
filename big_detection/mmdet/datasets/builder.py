@@ -10,8 +10,9 @@ from mmcv.runner import get_dist_info
 from mmcv.utils import Registry, build_from_cfg
 from torch.utils.data import DataLoader
 
-from .samplers import DistributedGroupSampler, DistributedSampler, DistributedClassAwareSampler, GroupSampler
-
+from big_detection.mmdet.datasets.samplers.distributed_classaware_sampler import DistributedClassAwareSampler
+from big_detection.mmdet.datasets.samplers.distributed_sampler import DistributedSampler
+from big_detection.mmdet.datasets.samplers.group_sampler import GroupSampler, DistributedGroupSampler
 
 if platform.system() != 'Windows':
     # https://github.com/pytorch/pytorch/issues/973

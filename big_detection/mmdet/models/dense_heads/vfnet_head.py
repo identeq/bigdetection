@@ -5,12 +5,23 @@ from mmcv.cnn import ConvModule, Scale
 from mmcv.ops import DeformConv2d
 from mmcv.runner import force_fp32
 
-from big_detection.mmdet import (bbox2distance, bbox_overlaps, build_anchor_generator,
-                                 build_assigner, build_sampler, distance2bbox,
-                                 multi_apply, multiclass_nms, reduce_mean)
-from ..builder import HEADS, build_loss
-from .atss_head import ATSSHead
-from .fcos_head import FCOSHead
+from big_detection.mmdet.core.anchor.builder import build_anchor_generator
+from big_detection.mmdet.core.bbox.builder import build_assigner, build_sampler
+from big_detection.mmdet.core.bbox.iou_calculators.iou2d_calculator import bbox_overlaps
+from big_detection.mmdet.core.bbox.transforms import distance2bbox, bbox2distance
+from big_detection.mmdet.core.post_processing.bbox_nms import multiclass_nms
+from big_detection.mmdet.core.utils.dist_utils import reduce_mean
+from big_detection.mmdet.core.utils.misc import multi_apply
+from big_detection.mmdet.models.builder import HEADS, build_loss
+from big_detection.mmdet.models.dense_heads.atss_head import ATSSHead
+from big_detection.mmdet.models.dense_heads.fcos_head import FCOSHead
+
+# from big_detection.mmdet.core import (bbox2distance, bbox_overlaps, build_anchor_generator,
+#                                       build_assigner, build_sampler, distance2bbox,
+#                                       multi_apply, multiclass_nms, reduce_mean)
+# from .atss_head import ATSSHead
+# from .fcos_head import FCOSHead
+# from ..builder import HEADS, build_loss
 
 INF = 1e8
 
@@ -284,7 +295,7 @@ class VFNetHead(ATSSHead, FCOSHead):
         """
         dcn_base_offset = self.dcn_base_offset.type_as(bbox_pred)
         bbox_pred_grad_mul = (1 - gradient_mul) * bbox_pred.detach() + \
-            gradient_mul * bbox_pred
+                             gradient_mul * bbox_pred
         # map to the feature map scale
         bbox_pred_grad_mul = bbox_pred_grad_mul / stride
         N, C, H, W = bbox_pred.size()

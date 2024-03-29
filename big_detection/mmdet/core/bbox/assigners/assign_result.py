@@ -1,6 +1,7 @@
 import torch
 
-from mmdet.utils import util_mixins
+from big_detection.mmdet.utils import util_mixins
+
 
 
 class AssignResult(util_mixins.NiceRepr):
@@ -115,7 +116,7 @@ class AssignResult(util_mixins.NiceRepr):
             >>> self = AssignResult.random()
             >>> print(self.info)
         """
-        from mmdet.core.bbox import demodata
+        from big_detection.mmdet.core.bbox import demodata
         rng = demodata.ensure_rng(kwargs.get('rng', None))
 
         num_gts = kwargs.get('num_gts', None)

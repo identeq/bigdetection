@@ -1,10 +1,16 @@
 import torch
 from mmcv.runner import force_fp32
 
-from big_detection.mmdet import images_to_levels
-from ..builder import HEADS
-from ..losses import carl_loss, isr_p
-from .retina_head import RetinaHead
+from big_detection.mmdet.core.anchor.utils import images_to_levels
+from big_detection.mmdet.models.builder import HEADS
+from big_detection.mmdet.models.dense_heads.retina_head import RetinaHead
+from big_detection.mmdet.models.losses.pisa_loss import isr_p, carl_loss
+
+
+# from big_detection.mmdet.core import images_to_levels
+# from ..builder import HEADS
+# from ..losses import carl_loss, isr_p
+# from .retina_head import RetinaHead
 
 
 @HEADS.register_module()

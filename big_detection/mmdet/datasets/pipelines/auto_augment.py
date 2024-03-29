@@ -4,8 +4,8 @@ import cv2
 import mmcv
 import numpy as np
 
-from ..builder import PIPELINES
-from .compose import Compose
+from big_detection.mmdet.datasets.builder import PIPELINES
+from big_detection.mmdet.datasets.pipelines.compose import Compose
 
 _MAX_LEVEL = 10
 

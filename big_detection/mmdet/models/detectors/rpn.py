@@ -4,9 +4,14 @@ import mmcv
 import torch
 from mmcv.image import tensor2imgs
 
-from big_detection.mmdet import bbox_mapping
-from ..builder import DETECTORS, build_backbone, build_head, build_neck
-from .base import BaseDetector
+from big_detection.mmdet.core.bbox.transforms import bbox_mapping
+from big_detection.mmdet.models.builder import DETECTORS, build_head, build_neck, build_backbone
+from big_detection.mmdet.models.detectors.base import BaseDetector
+
+
+# from big_detection.mmdet.core import bbox_mapping
+# from ..builder import DETECTORS, build_backbone, build_head, build_neck
+# from .base import BaseDetector
 
 
 @DETECTORS.register_module()

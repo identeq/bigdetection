@@ -2,7 +2,10 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from ..builder import LOSSES
+from big_detection.mmdet.models.builder import LOSSES
+
+
+# from ..builder import LOSSES
 
 
 def _expand_onehot_labels(labels, label_weights, label_channels):

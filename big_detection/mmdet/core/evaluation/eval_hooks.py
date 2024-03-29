@@ -13,7 +13,7 @@ class EvalHook(BaseEvalHook):
         if not self._should_evaluate(runner):
             return
 
-        from big_detection.mmdet import single_gpu_test
+        from big_detection.mmdet.apis.test import single_gpu_test
         results = single_gpu_test(runner.model, self.dataloader, show=False)
         runner.log_buffer.output['eval_iter_num'] = len(self.dataloader)
         key_score = self.evaluate(runner, results)
@@ -45,7 +45,7 @@ class DistEvalHook(BaseDistEvalHook):
         if tmpdir is None:
             tmpdir = osp.join(runner.work_dir, '.eval_hook')
 
-        from big_detection.mmdet import multi_gpu_test
+        from big_detection.mmdet.apis.test import multi_gpu_test
         results = multi_gpu_test(
             runner.model,
             self.dataloader,

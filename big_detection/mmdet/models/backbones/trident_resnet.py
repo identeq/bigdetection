@@ -7,7 +7,7 @@ from mmcv.runner import BaseModule
 from torch.nn.modules.utils import _pair
 
 from big_detection.mmdet.models.backbones.resnet import Bottleneck, ResNet
-from big_detection.mmdet import BACKBONES
+from big_detection.mmdet.models.builder import BACKBONES
 
 
 class TridentConv(BaseModule):

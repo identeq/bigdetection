@@ -5,9 +5,9 @@ import mmcv
 import numpy as np
 from numpy import random
 
-from big_detection.mmdet import PolygonMasks
-from big_detection.mmdet import bbox_overlaps
-from ..builder import PIPELINES
+from big_detection.mmdet.core.evaluation.bbox_overlaps import bbox_overlaps
+from big_detection.mmdet.core.mask.structures import PolygonMasks
+from big_detection.mmdet.datasets.builder import PIPELINES
 
 try:
     from imagecorruptions import corrupt

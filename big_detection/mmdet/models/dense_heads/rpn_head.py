@@ -6,8 +6,12 @@ import torch.nn.functional as F
 from mmcv.ops import batched_nms
 from mmcv.runner import force_fp32
 
-from ..builder import HEADS
-from .anchor_head import AnchorHead
+from big_detection.mmdet.models.builder import HEADS
+from big_detection.mmdet.models.dense_heads.anchor_head import AnchorHead
+
+
+# from ..builder import HEADS
+# from .anchor_head import AnchorHead
 
 
 @HEADS.register_module()
@@ -281,7 +285,7 @@ class RPNHead(AnchorHead):
             anchors = mlvl_anchors[idx]
             anchors = anchors.expand_as(rpn_bbox_pred)
             # Get top-k prediction
-            from big_detection.mmdet.core.export import get_k_for_topk
+            from big_detection.mmdet.core.export.onnx_helper import get_k_for_topk
             nms_pre = get_k_for_topk(nms_pre_tensor, rpn_bbox_pred.shape[1])
             if nms_pre > 0:
                 _, topk_inds = scores.topk(nms_pre)
@@ -307,10 +311,10 @@ class RPNHead(AnchorHead):
             batch_mlvl_anchors, batch_mlvl_rpn_bbox_pred, max_shape=img_shapes)
 
         # Use ONNX::NonMaxSuppression in deployment
-        from big_detection.mmdet.core.export import add_dummy_nms_for_onnx
         batch_mlvl_scores = batch_mlvl_scores.unsqueeze(2)
         score_threshold = cfg.nms.get('score_thr', 0.0)
         nms_pre = cfg.get('deploy_nms_pre', -1)
+        from big_detection.mmdet.core.export.onnx_helper import add_dummy_nms_for_onnx
         dets, _ = add_dummy_nms_for_onnx(batch_mlvl_proposals,
                                          batch_mlvl_scores, cfg.max_per_img,
                                          cfg.nms.iou_threshold,

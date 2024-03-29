@@ -5,7 +5,7 @@ import numpy as np
 import torch
 from mmcv.parallel import DataContainer as DC
 
-from ..builder import PIPELINES
+from big_detection.mmdet.datasets.builder import PIPELINES
 
 
 def to_tensor(data):

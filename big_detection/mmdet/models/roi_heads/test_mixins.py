@@ -4,8 +4,12 @@ import sys
 import numpy as np
 import torch
 
-from big_detection.mmdet import (bbox2roi, bbox_mapping, merge_aug_bboxes,
-                                 merge_aug_masks, multiclass_nms)
+from big_detection.mmdet.core.bbox.transforms import bbox2roi, bbox_mapping
+from big_detection.mmdet.core.post_processing.bbox_nms import multiclass_nms
+from big_detection.mmdet.core.post_processing.merge_augs import merge_aug_bboxes, merge_aug_masks
+
+# from big_detection.mmdet.core import (bbox2roi, bbox_mapping, merge_aug_bboxes,
+#                                  merge_aug_masks, multiclass_nms)
 
 logger = logging.getLogger(__name__)
 if sys.version_info >= (3, 7):

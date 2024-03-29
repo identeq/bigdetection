@@ -5,9 +5,15 @@ import torch.nn.functional as F
 from mmcv.cnn import ConvModule
 from mmcv.runner import BaseModule, force_fp32
 
-from big_detection.mmdet import build_bbox_coder, multi_apply, multiclass_nms
-from big_detection.mmdet import HEADS, build_loss
-from big_detection.mmdet import accuracy
+from big_detection.mmdet.core.bbox.builder import build_bbox_coder
+from big_detection.mmdet.core.post_processing.bbox_nms import multiclass_nms
+from big_detection.mmdet.core.utils.misc import multi_apply
+from big_detection.mmdet.models.builder import HEADS, build_loss
+from big_detection.mmdet.models.losses.accuracy import accuracy
+
+
+# from big_detection.mmdet.core import build_bbox_coder, multi_apply, multiclass_nms
+# from big_detection.mmdet.models import HEADS, build_loss, accuracy
 
 
 @HEADS.register_module()

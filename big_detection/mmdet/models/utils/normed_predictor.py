@@ -3,7 +3,10 @@ import torch.nn as nn
 import torch.nn.functional as F
 from mmcv.cnn import CONV_LAYERS
 
-from .builder import LINEAR_LAYERS
+from big_detection.mmdet.models.utils.builder import LINEAR_LAYERS
+
+
+# from .builder import LINEAR_LAYERS
 
 
 @LINEAR_LAYERS.register_module(name='NormedLinear')

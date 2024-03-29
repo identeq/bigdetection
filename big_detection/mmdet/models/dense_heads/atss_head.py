@@ -3,11 +3,19 @@ import torch.nn as nn
 from mmcv.cnn import ConvModule, Scale
 from mmcv.runner import force_fp32
 
-from big_detection.mmdet import (anchor_inside_flags, build_assigner, build_sampler,
-                                 images_to_levels, multi_apply, multiclass_nms,
-                                 reduce_mean, unmap)
-from ..builder import HEADS, build_loss
-from .anchor_head import AnchorHead
+from big_detection.mmdet.core.anchor.utils import images_to_levels, anchor_inside_flags
+from big_detection.mmdet.core.bbox.builder import build_assigner, build_sampler
+from big_detection.mmdet.core.post_processing.bbox_nms import multiclass_nms
+from big_detection.mmdet.core.utils.dist_utils import reduce_mean
+from big_detection.mmdet.core.utils.misc import multi_apply, unmap
+from big_detection.mmdet.models.builder import HEADS, build_loss
+from big_detection.mmdet.models.dense_heads.anchor_head import AnchorHead
+
+
+# from .anchor_head import AnchorHead
+# from ..builder import HEADS, build_loss
+# from ...core import build_assigner, multi_apply, anchor_inside_flags, unmap, images_to_levels, \
+#     build_sampler, multiclass_nms, reduce_mean
 
 
 @HEADS.register_module()
@@ -270,17 +278,17 @@ class ATSSHead(AnchorHead):
                          device=device)).item()
         num_total_samples = max(num_total_samples, 1.0)
 
-        losses_cls, losses_bbox, loss_centerness,\
+        losses_cls, losses_bbox, loss_centerness, \
             bbox_avg_factor = multi_apply(
-                self.loss_single,
-                anchor_list,
-                cls_scores,
-                bbox_preds,
-                centernesses,
-                labels_list,
-                label_weights_list,
-                bbox_targets_list,
-                num_total_samples=num_total_samples)
+            self.loss_single,
+            anchor_list,
+            cls_scores,
+            bbox_preds,
+            centernesses,
+            labels_list,
+            label_weights_list,
+            bbox_targets_list,
+            num_total_samples=num_total_samples)
 
         bbox_avg_factor = sum(bbox_avg_factor)
         bbox_avg_factor = reduce_mean(bbox_avg_factor).clamp_(min=1).item()
@@ -465,8 +473,8 @@ class ATSSHead(AnchorHead):
         deploy_nms_pre = cfg.get('deploy_nms_pre', -1)
         if deploy_nms_pre > 0 and torch.onnx.is_in_onnx_export():
             batch_mlvl_scores, _ = (
-                batch_mlvl_scores *
-                batch_mlvl_centerness.unsqueeze(2).expand_as(batch_mlvl_scores)
+                    batch_mlvl_scores *
+                    batch_mlvl_centerness.unsqueeze(2).expand_as(batch_mlvl_scores)
             ).max(-1)
             _, topk_inds = batch_mlvl_scores.topk(deploy_nms_pre)
             batch_inds = torch.arange(batch_size).view(-1,
@@ -474,7 +482,7 @@ class ATSSHead(AnchorHead):
             batch_mlvl_scores = batch_mlvl_scores[batch_inds, topk_inds, :]
             batch_mlvl_bboxes = batch_mlvl_bboxes[batch_inds, topk_inds, :]
             batch_mlvl_centerness = batch_mlvl_centerness[batch_inds,
-                                                          topk_inds]
+            topk_inds]
         # remind that we set FG labels to [0, num_class-1] since mmdet v2.0
         # BG cat_id: num_class
         padding = batch_mlvl_scores.new_zeros(batch_size,
@@ -537,16 +545,16 @@ class ATSSHead(AnchorHead):
             gt_labels_list = [None for _ in range(num_imgs)]
         (all_anchors, all_labels, all_label_weights, all_bbox_targets,
          all_bbox_weights, pos_inds_list, neg_inds_list) = multi_apply(
-             self._get_target_single,
-             anchor_list,
-             valid_flag_list,
-             num_level_anchors_list,
-             gt_bboxes_list,
-             gt_bboxes_ignore_list,
-             gt_labels_list,
-             img_metas,
-             label_channels=label_channels,
-             unmap_outputs=unmap_outputs)
+            self._get_target_single,
+            anchor_list,
+            valid_flag_list,
+            num_level_anchors_list,
+            gt_bboxes_list,
+            gt_bboxes_ignore_list,
+            gt_labels_list,
+            img_metas,
+            label_channels=label_channels,
+            unmap_outputs=unmap_outputs)
         # no valid anchors
         if any([labels is None for labels in all_labels]):
             return None
@@ -616,7 +624,7 @@ class ATSSHead(AnchorHead):
                                            img_meta['img_shape'][:2],
                                            self.train_cfg.allowed_border)
         if not inside_flags.any():
-            return (None, ) * 7
+            return (None,) * 7
         # assign gt and sample anchors
         anchors = flat_anchors[inside_flags, :]
 
@@ -632,7 +640,7 @@ class ATSSHead(AnchorHead):
         num_valid_anchors = anchors.shape[0]
         bbox_targets = torch.zeros_like(anchors)
         bbox_weights = torch.zeros_like(anchors)
-        labels = anchors.new_full((num_valid_anchors, ),
+        labels = anchors.new_full((num_valid_anchors,),
                                   self.num_classes,
                                   dtype=torch.long)
         label_weights = anchors.new_zeros(num_valid_anchors, dtype=torch.float)

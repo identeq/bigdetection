@@ -1,8 +1,12 @@
 import mmcv
 import torch.nn as nn
 
-from ..builder import LOSSES
-from .utils import weighted_loss
+from big_detection.mmdet.models.builder import LOSSES
+from big_detection.mmdet.models.losses.utils import weighted_loss
+
+
+# from ..builder import LOSSES
+# from .utils import weighted_loss
 
 
 @mmcv.jit(derivate=True, coderize=True)

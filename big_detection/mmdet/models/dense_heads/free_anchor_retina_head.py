@@ -1,9 +1,13 @@
 import torch
 import torch.nn.functional as F
 
-from big_detection.mmdet import bbox_overlaps
-from ..builder import HEADS
-from .retina_head import RetinaHead
+from big_detection.mmdet.core.evaluation.bbox_overlaps import bbox_overlaps
+from big_detection.mmdet.models.builder import HEADS
+from big_detection.mmdet.models.dense_heads.retina_head import RetinaHead
+
+# from big_detection.mmdet.core import bbox_overlaps
+# from ..builder import HEADS
+# from .retina_head import RetinaHead
 
 EPS = 1e-12
 

@@ -5,8 +5,8 @@ import mmcv
 import numpy as np
 from PIL import Image
 
-from .builder import DATASETS
-from .custom import CustomDataset
+from big_detection.mmdet.datasets.builder import DATASETS
+from big_detection.mmdet.datasets.custom import CustomDataset
 
 
 @DATASETS.register_module()

@@ -1,7 +1,10 @@
 import mmcv
 import torch
 
-from big_detection.mmdet import bbox_overlaps
+from big_detection.mmdet.core.bbox.iou_calculators.iou2d_calculator import bbox_overlaps
+
+
+# from big_detection.mmdet.core import bbox_overlaps
 
 
 @mmcv.jit(derivate=True, coderize=True)

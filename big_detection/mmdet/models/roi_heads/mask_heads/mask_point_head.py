@@ -6,7 +6,10 @@ from mmcv.cnn import ConvModule
 from mmcv.ops import point_sample, rel_roi_point_to_rel_img_point
 from mmcv.runner import BaseModule
 
-from big_detection.mmdet import HEADS, build_loss
+from big_detection.mmdet.models.builder import HEADS, build_loss
+
+
+# from big_detection.mmdet.models import HEADS, build_loss
 
 
 @HEADS.register_module()

@@ -5,9 +5,15 @@ import mmcv
 import numpy as np
 from mmcv import Config, DictAction
 
-from big_detection.mmdet import eval_map
-from big_detection.mmdet import imshow_gt_det_bboxes
-from big_detection.mmdet import build_dataset, get_loading_pipeline
+from big_detection.mmdet.core.evaluation.mean_ap import eval_map
+from big_detection.mmdet.core.visualization.image import imshow_gt_det_bboxes
+from big_detection.mmdet.datasets.builder import build_dataset
+from big_detection.mmdet.datasets.utils import get_loading_pipeline
+
+
+# from big_detection.mmdet.core import eval_map
+# from big_detection.mmdet.core.visualization import imshow_gt_det_bboxes
+# from big_detection.mmdet.datasets import get_loading_pipeline, build_dataset
 
 
 def bbox_map_eval(det_result, annotation):

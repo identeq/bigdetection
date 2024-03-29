@@ -6,10 +6,16 @@ import torch.nn.functional as F
 from mmcv.cnn import Linear, bias_init_with_prob, constant_init
 from mmcv.runner import force_fp32
 
-from big_detection.mmdet import multi_apply
-from big_detection.mmdet import inverse_sigmoid
-from ..builder import HEADS
-from .detr_head import DETRHead
+from big_detection.mmdet.core.utils.misc import multi_apply
+from big_detection.mmdet.models.builder import HEADS
+from big_detection.mmdet.models.dense_heads.detr_head import DETRHead
+from big_detection.mmdet.models.utils.transformer import inverse_sigmoid
+
+
+# from ..utils.transformer import inverse_sigmoid
+# from ...core import multi_apply
+# from ..builder import HEADS
+# from .detr_head import DETRHead
 
 
 @HEADS.register_module()

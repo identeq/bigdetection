@@ -4,10 +4,17 @@ import torch.nn.functional as F
 from mmcv.runner import BaseModule, auto_fp16, force_fp32
 from torch.nn.modules.utils import _pair
 
-from big_detection.mmdet import build_bbox_coder, multi_apply, multiclass_nms
-from big_detection.mmdet import HEADS, build_loss
-from big_detection.mmdet import accuracy
-from big_detection.mmdet import build_linear_layer
+from big_detection.mmdet.core.bbox.builder import build_bbox_coder
+from big_detection.mmdet.core.post_processing.bbox_nms import multiclass_nms
+from big_detection.mmdet.core.utils.misc import multi_apply
+from big_detection.mmdet.models.builder import HEADS, build_loss
+from big_detection.mmdet.models.losses.accuracy import accuracy
+from big_detection.mmdet.models.utils.builder import build_linear_layer
+
+
+# from big_detection.mmdet.core import build_bbox_coder, multi_apply, multiclass_nms
+# from big_detection.mmdet.models import HEADS, build_loss, accuracy
+# from big_detection.mmdet.models.utils import build_linear_layer
 
 
 @HEADS.register_module()
@@ -392,7 +399,7 @@ class BBoxHead(BaseModule):
             >>> # xdoctest: +REQUIRES(module:kwarray)
             >>> import kwarray
             >>> import numpy as np
-            >>> from big_detection.mmdet import random_boxes
+            >>> from big_detection.mmdet.models import random_boxes
             >>> self = BBoxHead(reg_class_agnostic=True)
             >>> n_roi = 2
             >>> n_img = 4
@@ -529,7 +536,6 @@ class BBoxHead(BaseModule):
                 bboxes = torch.where(bboxes > max_xy, max_xy, bboxes)
 
         # Replace multiclass_nms with ONNX::NonMaxSuppression in deployment
-        from big_detection.mmdet.core.export import add_dummy_nms_for_onnx
         batch_size = scores.shape[0]
         # ignore background class
         scores = scores[..., :self.num_classes]
@@ -552,6 +558,7 @@ class BBoxHead(BaseModule):
         iou_threshold = cfg.nms.get('iou_threshold', 0.5)
         score_threshold = cfg.score_thr
         nms_pre = cfg.get('deploy_nms_pre', -1)
+        from big_detection.mmdet.core.export.onnx_helper import add_dummy_nms_for_onnx
         batch_dets, labels = add_dummy_nms_for_onnx(
             bboxes_for_nms,
             scores.unsqueeze(2),

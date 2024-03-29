@@ -2,7 +2,10 @@ from abc import ABCMeta, abstractmethod
 
 from mmcv.runner import BaseModule
 
-from ..builder import build_shared_head
+from big_detection.mmdet.models.builder import build_shared_head
+
+
+# from ..builder import build_shared_head
 
 
 class BaseRoIHead(BaseModule, metaclass=ABCMeta):

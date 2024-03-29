@@ -522,7 +522,7 @@ class BitmapMasks(BaseInstanceMasks):
             >>> print('self = {}'.format(self))
             self = BitmapMasks(num_masks=3, height=32, width=32)
         """
-        from big_detection.mmdet import ensure_rng
+        from big_detection.mmdet.utils.util_random import ensure_rng
         rng = ensure_rng(rng)
         masks = (rng.rand(num_masks, height, width) > 0.1).astype(dtype)
         self = cls(masks, height=height, width=width)
@@ -920,7 +920,7 @@ class PolygonMasks(BaseInstanceMasks):
             >>> self = PolygonMasks.random()
             >>> print('self = {}'.format(self))
         """
-        from big_detection.mmdet import ensure_rng
+        from big_detection.mmdet.utils.util_random import ensure_rng
         rng = ensure_rng(rng)
 
         def _gen_polygon(n, irregularity, spikeyness):

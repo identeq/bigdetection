@@ -8,9 +8,10 @@ from mmcv.utils import print_log
 from terminaltables import AsciiTable
 from torch.utils.data import Dataset
 
-from mmdet.core import eval_map, eval_recalls
-from .builder import DATASETS
-from .pipelines import Compose
+from big_detection.mmdet.core.evaluation.mean_ap import eval_map
+from big_detection.mmdet.core.evaluation.recall import eval_recalls
+from big_detection.mmdet.datasets.builder import DATASETS
+from big_detection.mmdet.datasets.pipelines.compose import Compose
 
 
 @DATASETS.register_module()

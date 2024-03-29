@@ -4,9 +4,15 @@ from mmcv.cnn import (ConvModule, bias_init_with_prob, constant_init, is_norm,
                       normal_init)
 from mmcv.runner import force_fp32
 
-from big_detection.mmdet import anchor_inside_flags, multi_apply, reduce_mean, unmap
-from ..builder import HEADS
-from .anchor_head import AnchorHead
+from big_detection.mmdet.core.anchor.utils import anchor_inside_flags
+from big_detection.mmdet.core.utils.dist_utils import reduce_mean
+from big_detection.mmdet.core.utils.misc import multi_apply, unmap
+from big_detection.mmdet.models.builder import HEADS
+from big_detection.mmdet.models.dense_heads.anchor_head import AnchorHead
+
+# from big_detection.mmdet.core import anchor_inside_flags, multi_apply, reduce_mean, unmap
+# from ..builder import HEADS
+# from .anchor_head import AnchorHead
 
 INF = 1e8
 

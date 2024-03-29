@@ -4,9 +4,14 @@ import numpy as np
 import torch.nn as nn
 from mmcv.cnn import build_conv_layer, build_norm_layer
 
-from ..builder import BACKBONES
-from .resnet import ResNet
-from .resnext import Bottleneck
+from big_detection.mmdet.models.backbones.resnet import ResNet
+from big_detection.mmdet.models.backbones.resnext import Bottleneck
+from big_detection.mmdet.models.builder import BACKBONES
+
+
+# from ..builder import BACKBONES
+# from .resnet import ResNet
+# from .resnext import Bottleneck
 
 
 @BACKBONES.register_module()
@@ -47,7 +52,7 @@ class RegNet(ResNet):
             Default: None
 
     Example:
-        >>> from big_detection.mmdet import RegNet
+        >>> from big_detection.mmdet.models.backbones.regnet import RegNet
         >>> import torch
         >>> self = RegNet(
                 arch=dict(

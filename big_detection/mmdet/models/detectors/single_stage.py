@@ -2,9 +2,14 @@ import warnings
 
 import torch
 
-from big_detection.mmdet import bbox2result
-from ..builder import DETECTORS, build_backbone, build_head, build_neck
-from .base import BaseDetector
+from big_detection.mmdet.core.bbox.transforms import bbox2result
+from big_detection.mmdet.models.builder import DETECTORS, build_head, build_neck, build_backbone
+from big_detection.mmdet.models.detectors.base import BaseDetector
+
+
+# from big_detection.mmdet.core import bbox2result
+# from ..builder import DETECTORS, build_backbone, build_head, build_neck
+# from .base import BaseDetector
 
 
 @DETECTORS.register_module()

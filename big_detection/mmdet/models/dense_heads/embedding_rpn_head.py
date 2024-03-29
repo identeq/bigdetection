@@ -2,8 +2,8 @@ import torch
 import torch.nn as nn
 from mmcv.runner import BaseModule
 
-from big_detection.mmdet import HEADS
-from ...core import bbox_cxcywh_to_xyxy
+from big_detection.mmdet.core.bbox.transforms import bbox_cxcywh_to_xyxy
+from big_detection.mmdet.models.builder import HEADS
 
 
 @HEADS.register_module()

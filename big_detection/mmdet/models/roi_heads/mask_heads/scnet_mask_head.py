@@ -1,6 +1,9 @@
-from big_detection.mmdet import HEADS
-from big_detection.mmdet import ResLayer, SimplifiedBasicBlock
-from .fcn_mask_head import FCNMaskHead
+# from big_detection.mmdet.models import HEADS
+# from .fcn_mask_head import FCNMaskHead
+# from ...utils import ResLayer, SimplifiedBasicBlock
+from big_detection.mmdet.models.builder import HEADS
+from big_detection.mmdet.models.roi_heads.mask_heads.fcn_mask_head import FCNMaskHead
+from big_detection.mmdet.models.utils.res_layer import ResLayer, SimplifiedBasicBlock
 
 
 @HEADS.register_module()

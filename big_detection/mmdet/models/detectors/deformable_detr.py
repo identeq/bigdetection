@@ -1,5 +1,7 @@
-from ..builder import DETECTORS
-from .detr import DETR
+# from ..builder import DETECTORS
+# from .detr import DETR
+from big_detection.mmdet.models.builder import DETECTORS
+from big_detection.mmdet.models.detectors.detr import DETR
 
 
 @DETECTORS.register_module()

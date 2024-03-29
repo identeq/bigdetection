@@ -1,9 +1,17 @@
 import torch
 
-from big_detection.mmdet import multi_apply
-from ..builder import HEADS
-from ..losses import CrossEntropyLoss, SmoothL1Loss, carl_loss, isr_p
-from .ssd_head import SSDHead
+from big_detection.mmdet.core.utils.misc import multi_apply
+from big_detection.mmdet.models.builder import HEADS
+from big_detection.mmdet.models.dense_heads.ssd_head import SSDHead
+from big_detection.mmdet.models.losses.cross_entropy_loss import CrossEntropyLoss
+from big_detection.mmdet.models.losses.pisa_loss import isr_p, carl_loss
+from big_detection.mmdet.models.losses.smooth_l1_loss import SmoothL1Loss
+
+
+# from big_detection.mmdet.core import multi_apply
+# from ..builder import HEADS
+# from ..losses import CrossEntropyLoss, SmoothL1Loss, carl_loss, isr_p
+# from .ssd_head import SSDHead
 
 
 # TODO: add loss evaluator for SSD

@@ -11,13 +11,19 @@ from mmcv.runner import (get_dist_info, init_dist, load_checkpoint,
                          wrap_fp16_model)
 from pycocotools.coco import COCO
 from pycocotools.cocoeval import COCOeval
+
+from big_detection.mmdet.apis.test import single_gpu_test, multi_gpu_test
+from big_detection.mmdet.apis.train import set_random_seed
+from big_detection.mmdet.core.evaluation.mean_ap import eval_map
+from big_detection.mmdet.datasets.builder import build_dataset, build_dataloader
+from big_detection.mmdet.models.builder import build_detector
+# from big_detection.mmdet.apis import set_random_seed, single_gpu_test, multi_gpu_test
 from big_detection.tools.analysis_tools.robustness_eval import get_results
 
 from big_detection.mmdet import datasets
-from big_detection.mmdet import multi_gpu_test, set_random_seed, single_gpu_test
-from big_detection.mmdet import eval_map
-from big_detection.mmdet import build_dataloader, build_dataset
-from big_detection.mmdet import build_detector
+# from big_detection.mmdet.core import eval_map
+# from big_detection.mmdet.datasets import build_dataloader, build_dataset
+# from big_detection.mmdet.models import build_detector
 
 
 def coco_eval_with_return(result_files,

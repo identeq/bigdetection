@@ -4,12 +4,23 @@ import torch.nn.functional as F
 from mmcv.cnn import ConvModule, Scale
 from mmcv.runner import force_fp32
 
-from big_detection.mmdet import (anchor_inside_flags, bbox2distance, bbox_overlaps,
-                                 build_assigner, build_sampler, distance2bbox,
-                                 images_to_levels, multi_apply, multiclass_nms,
-                                 reduce_mean, unmap)
-from ..builder import HEADS, build_loss
-from .anchor_head import AnchorHead
+from big_detection.mmdet.core.anchor.utils import images_to_levels, anchor_inside_flags
+from big_detection.mmdet.core.bbox.builder import build_assigner, build_sampler
+from big_detection.mmdet.core.bbox.iou_calculators.iou2d_calculator import bbox_overlaps
+from big_detection.mmdet.core.bbox.transforms import bbox2distance, distance2bbox
+from big_detection.mmdet.core.post_processing.bbox_nms import multiclass_nms
+from big_detection.mmdet.core.utils.dist_utils import reduce_mean
+from big_detection.mmdet.core.utils.misc import multi_apply, unmap
+from big_detection.mmdet.models.builder import HEADS, build_loss
+from big_detection.mmdet.models.dense_heads.anchor_head import AnchorHead
+
+
+# from big_detection.mmdet.core import (anchor_inside_flags, bbox2distance, bbox_overlaps,
+#                                  build_assigner, build_sampler, distance2bbox,
+#                                  images_to_levels, multi_apply, multiclass_nms,
+#                                  reduce_mean, unmap)
+# from ..builder import HEADS, build_loss
+# from .anchor_head import AnchorHead
 
 
 class Integral(nn.Module):

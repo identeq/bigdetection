@@ -5,8 +5,8 @@ from mmcv.cnn import build_conv_layer, build_norm_layer
 from mmcv.runner import BaseModule, ModuleList, Sequential
 from torch.nn.modules.batchnorm import _BatchNorm
 
-from ..builder import BACKBONES
-from .resnet import BasicBlock, Bottleneck
+from big_detection.mmdet.models.backbones.resnet import BasicBlock, Bottleneck
+from big_detection.mmdet.models.builder import BACKBONES
 
 
 class HRModule(BaseModule):
@@ -141,7 +141,7 @@ class HRModule(BaseModule):
                                 bias=False),
                             build_norm_layer(self.norm_cfg, in_channels[i])[1],
                             nn.Upsample(
-                                scale_factor=2**(j - i), mode='nearest')))
+                                scale_factor=2 ** (j - i), mode='nearest')))
                 elif j == i:
                     fuse_layer.append(None)
                 else:
@@ -223,7 +223,7 @@ class HRNet(BaseModule):
             Default: None
 
     Example:
-        >>> from big_detection.mmdet import HRNet
+        >>> from big_detection.mmdet.models.backbones.hrnet import HRNet
         >>> import torch
         >>> extra = dict(
         >>>     stage1=dict(

@@ -4,12 +4,19 @@ import torch.nn.functional as F
 from mmcv.cnn import bias_init_with_prob, normal_init
 from mmcv.runner import force_fp32
 
-from mmdet.core import distance2bbox, multi_apply
-from mmdet.core.bbox import bbox_overlaps
-from mmdet.models import HEADS
-from big_detection.mmdet.models.dense_heads import reduce_mean
+from big_detection.mmdet.core.bbox.transforms import distance2bbox
+from big_detection.mmdet.core.evaluation.bbox_overlaps import bbox_overlaps
+from big_detection.mmdet.core.utils.dist_utils import reduce_mean
+from big_detection.mmdet.core.utils.misc import multi_apply
+from big_detection.mmdet.models.builder import HEADS
+# from big_detection.mmdet.core import distance2bbox, multi_apply, reduce_mean
+# from big_detection.mmdet.core.bbox import bbox_overlaps
+# from big_detection.mmdet.models import HEADS
+# from big_detection.mmdet.models.dense_heads import reduce_mean
 from big_detection.mmdet.models.dense_heads.fcos_head import FCOSHead
-from big_detection.mmdet.models.dense_heads import levels_to_images
+from big_detection.mmdet.models.dense_heads.paa_head import levels_to_images
+
+# from big_detection.mmdet.models.dense_heads import levels_to_images
 
 EPS = 1e-12
 

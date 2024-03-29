@@ -1,18 +1,20 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
-from mmcv.cnn import constant_init
-from big_detection.mmdet import get_root_logger
-from ..builder import BACKBONES
-from .resnet import ResNet, build_norm_layer, _BatchNorm
-from .res2net import Res2Net
-from .swin_transformer import SwinTransformer
-
+from mmcv.cnn import constant_init, build_norm_layer
 from mmcv.runner import BaseModule
+from torch.nn.modules.batchnorm import _BatchNorm
+
+from big_detection.mmdet.models.backbones.res2net import Res2Net
+from big_detection.mmdet.models.backbones.resnet import ResNet
+from big_detection.mmdet.models.backbones.swin_transformer import SwinTransformer
+from big_detection.mmdet.models.builder import BACKBONES
+
 '''
 For CNN
 '''
+
+
 class _CBSubnet(BaseModule):
     def _freeze_stages(self):
         if self.frozen_stages >= 0:
@@ -33,16 +35,16 @@ class _CBSubnet(BaseModule):
             m.eval()
             for param in m.parameters():
                 param.requires_grad = False
-    
+
     def del_layers(self, del_stages):
         self.del_stages = del_stages
-        if self.del_stages>=0:
+        if self.del_stages >= 0:
             if self.deep_stem:
                 del self.stem
             else:
                 del self.conv1
-        
-        for i in range(1, self.del_stages+1):
+
+        for i in range(1, self.del_stages + 1):
             delattr(self, f'layer{i}')
 
     def forward(self, x, cb_feats=None, pre_outs=None):
@@ -61,7 +63,7 @@ class _CBSubnet(BaseModule):
         else:
             x = pre_outs[0]
         outs.append(x)
-        
+
         for i, layer_name in enumerate(self.res_layers):
             if hasattr(self, layer_name):
                 res_layer = getattr(self, layer_name)
@@ -70,7 +72,7 @@ class _CBSubnet(BaseModule):
                     x = x + cb_feats[i]
                 x = res_layer(x)
             else:
-                x = pre_outs[i+1]
+                x = pre_outs[i + 1]
             outs.append(x)
         return tuple(outs), spatial_info
 
@@ -79,21 +81,24 @@ class _CBSubnet(BaseModule):
         super().train(mode)
         self._freeze_stages()
 
+
 class _ResNet(_CBSubnet, ResNet):
     def __init__(self, **kwargs):
         _CBSubnet.__init__(self)
         ResNet.__init__(self, **kwargs)
+
 
 class _Res2Net(_CBSubnet, Res2Net):
     def __init__(self, **kwargs):
         _CBSubnet.__init__(self)
         Res2Net.__init__(self, **kwargs)
 
+
 class _CBNet(BaseModule):
     def _freeze_stages(self):
         for m in self.cb_modules:
             m._freeze_stages()
-    
+
     def init_cb_weights(self):
         raise NotImplementedError
 
@@ -113,11 +118,11 @@ class _CBNet(BaseModule):
             else:
                 pre_outs, spatial_info = module(x, cb_feats, pre_outs)
 
-            outs = [pre_outs[i+1] for i in self.out_indices]
+            outs = [pre_outs[i + 1] for i in self.out_indices]
             outs_list.append(tuple(outs))
-            
-            if i < len(self.cb_modules)-1:
-                cb_feats = self._get_cb_feats(pre_outs, spatial_info)  
+
+            if i < len(self.cb_modules) - 1:
+                cb_feats = self._get_cb_feats(pre_outs, spatial_info)
         return tuple(outs_list)
 
     def train(self, mode=True):
@@ -130,6 +135,7 @@ class _CBNet(BaseModule):
             # trick: eval have effect on BatchNorm only
             if isinstance(m, _BatchNorm):
                 m.eval()
+
 
 class _CBResNet(_CBNet):
     def __init__(self, net, cb_inplanes, cb_zero_init=True, cb_del_stages=0, **kwargs):
@@ -159,9 +165,9 @@ class _CBResNet(_CBNet):
                             build_norm_layer(norm_cfg, cb_inplanes[i])[1]
                         )
                     )
-                
+
             self.cb_linears.append(linears)
-    
+
     def init_cb_weights(self):
         if self.cb_zero_init:
             for ls in self.cb_linears:
@@ -182,11 +188,11 @@ class _CBResNet(_CBNet):
                     tmp = self.cb_linears[i][j](feats[j + i + 1])
                     tmp = F.interpolate(tmp, size=(h, w), mode='nearest')
                     feeds.append(tmp)
-                feed = torch.sum(torch.stack(feeds,dim=-1), dim=-1)
+                feed = torch.sum(torch.stack(feeds, dim=-1), dim=-1)
             else:
                 feed = 0
             cb_feats.append(feed)
-            
+
         return cb_feats
 
 
@@ -195,15 +201,18 @@ class CBResNet(_CBResNet):
     def __init__(self, **kwargs):
         super().__init__(net=_ResNet, **kwargs)
 
+
 @BACKBONES.register_module()
 class CBRes2Net(_CBResNet):
     def __init__(self, **kwargs):
         super().__init__(net=_Res2Net, **kwargs)
-        
+
 
 '''
 For Swin Transformer
 '''
+
+
 class _SwinTransformer(SwinTransformer):
     def _freeze_stages(self):
         if self.frozen_stages >= 0 and hasattr(self, 'patch_embed'):
@@ -226,12 +235,12 @@ class _SwinTransformer(SwinTransformer):
 
     def del_layers(self, del_stages):
         self.del_stages = del_stages
-        if self.del_stages>=0:
+        if self.del_stages >= 0:
             del self.patch_embed
-        
-        if self.del_stages >=1 and self.ape:
+
+        if self.del_stages >= 1 and self.ape:
             del self.absolute_pos_embed
-        
+
         for i in range(0, self.del_stages - 1):
             self.layers[i] = None
 
@@ -259,7 +268,7 @@ class _SwinTransformer(SwinTransformer):
         for i in range(self.num_layers):
             layer = self.layers[i]
             if layer is None:
-                x_out, H, W, x, Wh, Ww = pre_tmps[i+1]
+                x_out, H, W, x, Wh, Ww = pre_tmps[i + 1]
             else:
                 if cb_feats is not None:
                     x = x + cb_feats[i]
@@ -302,7 +311,7 @@ class CBSwinTransformer(BaseModule):
         self.cb_linears = nn.ModuleList()
         for i in range(self.num_layers):
             linears = nn.ModuleList()
-            if i >= self.cb_del_stages-1:
+            if i >= self.cb_del_stages - 1:
                 jrange = 4 - i
                 for j in range(jrange):
                     if cb_inplanes[i + j] != cb_inplanes[i]:
@@ -328,7 +337,7 @@ class CBSwinTransformer(BaseModule):
             for ls in self.cb_linears:
                 for m in ls:
                     constant_init(m, 0)
-                        
+
         for m in self.cb_modules:
             m.init_weights()
 
@@ -345,14 +354,14 @@ class CBSwinTransformer(BaseModule):
         Wh, Ww = tmps[0][-2:]
         for i in range(self.num_layers):
             feed = 0
-            if i >= self.cb_del_stages-1:
+            if i >= self.cb_del_stages - 1:
                 jrange = 4 - i
                 for j in range(jrange):
                     tmp = self.cb_linears[i][j](feats[j + i])
                     tmp = self.spatial_interpolate(tmp, Wh, Ww)
                     feed += tmp
             cb_feats.append(feed)
-            Wh, Ww = tmps[i+1][-2:]
+            Wh, Ww = tmps[i + 1][-2:]
 
         return cb_feats
 
@@ -365,9 +374,9 @@ class CBSwinTransformer(BaseModule):
                 feats, tmps = module(x, cb_feats, tmps)
 
             outs.append(feats)
-            
-            if i < len(self.cb_modules)-1:
-                cb_feats = self._get_cb_feats(outs[-1], tmps)  
+
+            if i < len(self.cb_modules) - 1:
+                cb_feats = self._get_cb_feats(outs[-1], tmps)
         return tuple(outs)
 
     def train(self, mode=True):
@@ -380,4 +389,3 @@ class CBSwinTransformer(BaseModule):
             # trick: eval have effect on BatchNorm only
             if isinstance(m, _BatchNorm):
                 m.eval()
-

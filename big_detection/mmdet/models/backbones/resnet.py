@@ -6,8 +6,7 @@ from mmcv.cnn import build_conv_layer, build_norm_layer, build_plugin_layer
 from mmcv.runner import BaseModule
 from torch.nn.modules.batchnorm import _BatchNorm
 
-from ..builder import BACKBONES
-from ..utils import ResLayer
+from big_detection.mmdet.models.builder import BACKBONES
 
 
 class BasicBlock(BaseModule):
@@ -343,7 +342,7 @@ class ResNet(BaseModule):
             Default: None
 
     Example:
-        >>> from big_detection.mmdet import ResNet
+        >>> from big_detection.mmdet.models.backbones.resnet import ResNet
         >>> import torch
         >>> self = ResNet(depth=18)
         >>> self.eval()
@@ -464,7 +463,7 @@ class ResNet(BaseModule):
                 stage_plugins = self.make_stage_plugins(plugins, i)
             else:
                 stage_plugins = None
-            planes = base_channels * 2**i
+            planes = base_channels * 2 ** i
             res_layer = self.make_res_layer(
                 block=self.block,
                 inplanes=self.inplanes,
@@ -487,8 +486,8 @@ class ResNet(BaseModule):
 
         self._freeze_stages()
 
-        self.feat_dim = self.block.expansion * base_channels * 2**(
-            len(self.stage_blocks) - 1)
+        self.feat_dim = self.block.expansion * base_channels * 2 ** (
+                len(self.stage_blocks) - 1)
 
     def make_stage_plugins(self, plugins, stage_idx):
         """Make plugins for ResNet ``stage_idx`` th stage.
@@ -554,6 +553,7 @@ class ResNet(BaseModule):
 
     def make_res_layer(self, **kwargs):
         """Pack all blocks in a stage into a ``ResLayer``."""
+        from big_detection.mmdet.models.utils.res_layer import ResLayer
         return ResLayer(**kwargs)
 
     @property

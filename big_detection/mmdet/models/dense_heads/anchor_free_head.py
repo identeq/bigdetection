@@ -5,10 +5,16 @@ import torch.nn as nn
 from mmcv.cnn import ConvModule
 from mmcv.runner import force_fp32
 
-from big_detection.mmdet import multi_apply
-from ..builder import HEADS, build_loss
-from .base_dense_head import BaseDenseHead
-from .dense_test_mixins import BBoxTestMixin
+from big_detection.mmdet.core.utils.misc import multi_apply
+from big_detection.mmdet.models.builder import HEADS, build_loss
+from big_detection.mmdet.models.dense_heads.base_dense_head import BaseDenseHead
+from big_detection.mmdet.models.dense_heads.dense_test_mixins import BBoxTestMixin
+
+
+# from ..builder import HEADS, build_loss
+# from .base_dense_head import BaseDenseHead
+# from .dense_test_mixins import BBoxTestMixin
+# from ...core import multi_apply
 
 
 @HEADS.register_module()

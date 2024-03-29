@@ -9,12 +9,22 @@ from mmcv.cnn import (ConvModule, bias_init_with_prob, constant_init, is_norm,
                       normal_init)
 from mmcv.runner import force_fp32
 
-from big_detection.mmdet import (build_anchor_generator, build_assigner,
-                                 build_bbox_coder, build_sampler, images_to_levels,
-                                 multi_apply, multiclass_nms)
-from ..builder import HEADS, build_loss
-from .base_dense_head import BaseDenseHead
-from .dense_test_mixins import BBoxTestMixin
+from big_detection.mmdet.core.anchor.builder import build_anchor_generator
+from big_detection.mmdet.core.anchor.utils import images_to_levels
+from big_detection.mmdet.core.bbox.builder import build_assigner, build_sampler, build_bbox_coder
+from big_detection.mmdet.core.post_processing.bbox_nms import multiclass_nms
+from big_detection.mmdet.core.utils.misc import multi_apply
+from big_detection.mmdet.models.builder import HEADS, build_loss
+from big_detection.mmdet.models.dense_heads.base_dense_head import BaseDenseHead
+from big_detection.mmdet.models.dense_heads.dense_test_mixins import BBoxTestMixin
+
+
+# from big_detection.mmdet.core import (build_anchor_generator, build_assigner,
+#                                  build_bbox_coder, build_sampler, images_to_levels,
+#                                  multi_apply, multiclass_nms)
+# from ..builder import HEADS, build_loss
+# from .base_dense_head import BaseDenseHead
+# from .dense_test_mixins import BBoxTestMixin
 
 
 @HEADS.register_module()
@@ -296,7 +306,7 @@ class YOLOV3Head(BaseDenseHead, BBoxTestMixin):
                 batch_size, -1, self.num_classes)  # Cls pred one-hot.
 
             # Get top-k prediction
-            from big_detection.mmdet.core.export import get_k_for_topk
+            from big_detection.mmdet.core.export.onnx_helper import get_k_for_topk
             nms_pre = get_k_for_topk(nms_pre_tensor, bbox_pred.shape[1])
             if nms_pre > 0:
                 _, topk_inds = conf_pred.topk(nms_pre)

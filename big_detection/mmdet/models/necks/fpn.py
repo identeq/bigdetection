@@ -3,7 +3,10 @@ import torch.nn.functional as F
 from mmcv.cnn import ConvModule
 from mmcv.runner import BaseModule, auto_fp16
 
-from ..builder import NECKS
+from big_detection.mmdet.models.builder import NECKS
+
+
+# from ..builder import NECKS
 
 
 @NECKS.register_module()

@@ -5,9 +5,17 @@ import torch.nn.functional as F
 from mmcv.cnn import ConvModule
 from mmcv.runner import BaseModule, ModuleList, force_fp32
 
-from big_detection.mmdet import build_sampler, fast_nms, images_to_levels, multi_apply
-from ..builder import HEADS, build_loss
-from .anchor_head import AnchorHead
+from big_detection.mmdet.core.anchor.utils import images_to_levels
+from big_detection.mmdet.core.bbox.builder import build_sampler
+from big_detection.mmdet.core.post_processing.bbox_nms import fast_nms
+from big_detection.mmdet.core.utils.misc import multi_apply
+from big_detection.mmdet.models.builder import HEADS, build_loss
+from big_detection.mmdet.models.dense_heads.anchor_head import AnchorHead
+
+
+# from big_detection.mmdet.core import build_sampler, fast_nms, images_to_levels, multi_apply
+# from ..builder import HEADS, build_loss
+# from .anchor_head import AnchorHead
 
 
 @HEADS.register_module()

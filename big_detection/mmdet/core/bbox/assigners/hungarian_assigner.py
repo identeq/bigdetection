@@ -1,10 +1,10 @@
 import torch
 
-from ..builder import BBOX_ASSIGNERS
-from ..match_costs import build_match_cost
-from ..transforms import bbox_cxcywh_to_xyxy
-from .assign_result import AssignResult
-from .base_assigner import BaseAssigner
+from big_detection.mmdet.core.bbox.assigners.assign_result import AssignResult
+from big_detection.mmdet.core.bbox.assigners.base_assigner import BaseAssigner
+from big_detection.mmdet.core.bbox.builder import BBOX_ASSIGNERS
+from big_detection.mmdet.core.bbox.match_costs import build_match_cost
+from big_detection.mmdet.core.bbox.transforms import bbox_cxcywh_to_xyxy
 
 try:
     from scipy.optimize import linear_sum_assignment

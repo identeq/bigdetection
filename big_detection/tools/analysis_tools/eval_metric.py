@@ -3,7 +3,10 @@ import argparse
 import mmcv
 from mmcv import Config, DictAction
 
-from big_detection.mmdet import build_dataset
+from big_detection.mmdet.datasets.builder import build_dataset
+
+
+# from big_detection.mmdet.datasets import build_dataset
 
 
 def parse_args():

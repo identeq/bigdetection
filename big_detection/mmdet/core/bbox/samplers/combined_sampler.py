@@ -1,5 +1,5 @@
-from ..builder import BBOX_SAMPLERS, build_sampler
-from .base_sampler import BaseSampler
+from big_detection.mmdet.core.bbox.builder import BBOX_SAMPLERS, build_sampler
+from big_detection.mmdet.core.bbox.samplers.base_sampler import BaseSampler
 
 
 @BBOX_SAMPLERS.register_module()

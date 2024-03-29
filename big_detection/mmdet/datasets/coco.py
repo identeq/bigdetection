@@ -10,10 +10,10 @@ import numpy as np
 from mmcv.utils import print_log
 from terminaltables import AsciiTable
 
-from mmdet.core import eval_recalls
-from .api_wrappers import COCO, COCOeval
-from .builder import DATASETS
-from .custom import CustomDataset
+from big_detection.mmdet.core.evaluation.recall import eval_recalls
+from big_detection.mmdet.datasets.api_wrappers.coco_api import COCO, COCOeval
+from big_detection.mmdet.datasets.builder import DATASETS
+from big_detection.mmdet.datasets.custom import CustomDataset
 
 
 @DATASETS.register_module()

@@ -12,10 +12,16 @@ from mmcv.runner import get_dist_info, init_dist
 from mmcv.utils import get_git_hash
 
 from big_detection.mmdet import __version__
-from big_detection.mmdet import set_random_seed, train_detector
-from big_detection.mmdet import build_dataset
-from big_detection.mmdet import build_detector
-from big_detection.mmdet import collect_env, get_root_logger
+from big_detection.mmdet.apis.train import set_random_seed, train_detector
+from big_detection.mmdet.datasets.builder import build_dataset
+from big_detection.mmdet.models.builder import build_detector
+from big_detection.mmdet.utils.logger import get_root_logger
+
+
+# from big_detection.mmdet import set_random_seed, train_detector
+# from big_detection.mmdet import build_dataset
+# from big_detection.mmdet import build_detector
+# from big_detection.mmdet import collect_env, get_root_logger
 
 
 def parse_args():
@@ -135,6 +141,7 @@ def main():
     # environment info and seed, which will be logged
     meta = dict()
     # log env info
+    from big_detection.mmdet.utils.collect_env import collect_env
     env_info_dict = collect_env()
     env_info = '\n'.join([(f'{k}: {v}') for k, v in env_info_dict.items()])
     dash_line = '-' * 60 + '\n'

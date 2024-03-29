@@ -2,7 +2,10 @@ import torch.utils.checkpoint as cp
 from mmcv.cnn import ConvModule
 from mmcv.runner import BaseModule
 
-from .se_layer import SELayer
+from big_detection.mmdet.models.utils.se_layer import SELayer
+
+
+# from .se_layer import SELayer
 
 
 class InvertedResidual(BaseModule):

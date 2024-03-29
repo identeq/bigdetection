@@ -8,8 +8,8 @@ import torch.utils.data as data
 from mmcv.utils import print_log
 from torch.utils.data.dataset import ConcatDataset as _ConcatDataset
 
-from .builder import DATASETS
-from .coco import CocoDataset
+from big_detection.mmdet.datasets.builder import DATASETS
+from big_detection.mmdet.datasets.coco import CocoDataset
 
 
 @DATASETS.register_module()
@@ -86,7 +86,7 @@ class ConcatDataset(_ConcatDataset):
         # Check whether all the datasets support evaluation
         for dataset in self.datasets:
             assert hasattr(dataset, 'evaluate'), \
-                    f'{type(dataset)} does not implement evaluate function'
+                f'{type(dataset)} does not implement evaluate function'
 
         if self.separate_eval:
             dataset_idx = -1
@@ -282,5 +282,3 @@ class ClassBalancedDataset:
     def __len__(self):
         """Length after repetition."""
         return len(self.repeat_indices)
-
-

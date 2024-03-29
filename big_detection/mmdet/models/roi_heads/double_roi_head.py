@@ -1,5 +1,7 @@
-from ..builder import HEADS
-from .standard_roi_head import StandardRoIHead
+# from ..builder import HEADS
+# from .standard_roi_head import StandardRoIHead
+from big_detection.mmdet.models.builder import HEADS
+from big_detection.mmdet.models.roi_heads.standard_roi_head import StandardRoIHead
 
 
 @HEADS.register_module()

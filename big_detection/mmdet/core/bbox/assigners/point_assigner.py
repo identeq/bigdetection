@@ -1,8 +1,8 @@
 import torch
 
-from ..builder import BBOX_ASSIGNERS
-from .assign_result import AssignResult
-from .base_assigner import BaseAssigner
+from big_detection.mmdet.core.bbox.assigners.assign_result import AssignResult
+from big_detection.mmdet.core.bbox.assigners.base_assigner import BaseAssigner
+from big_detection.mmdet.core.bbox.builder import BBOX_ASSIGNERS
 
 
 @BBOX_ASSIGNERS.register_module()

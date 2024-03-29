@@ -8,8 +8,9 @@ import onnx
 import torch
 from mmcv import Config, DictAction
 
-from big_detection.mmdet import build_model_from_cfg, preprocess_example_input
-from big_detection.mmdet.core.export import ONNXRuntimeDetector
+# from big_detection.mmdet.core.export import preprocess_example_input, build_model_from_cfg
+from big_detection.mmdet.core.export.model_wrappers import ONNXRuntimeDetector
+from big_detection.mmdet.core.export.pytorch2onnx import preprocess_example_input, build_model_from_cfg
 
 
 def pytorch2onnx(model,

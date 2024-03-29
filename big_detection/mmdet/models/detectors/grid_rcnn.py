@@ -1,5 +1,5 @@
-from ..builder import DETECTORS
-from .two_stage import TwoStageDetector
+from big_detection.mmdet.models.builder import DETECTORS
+from big_detection.mmdet.models.detectors.two_stage import TwoStageDetector
 
 
 @DETECTORS.register_module()

@@ -4,9 +4,13 @@ import mmcv
 from mmcv import Config, DictAction
 from mmcv.parallel import MMDataParallel
 
-from big_detection.mmdet import single_gpu_test
-from big_detection.mmdet import (build_dataloader, build_dataset,
-                                 replace_ImageToTensor)
+from big_detection.mmdet.apis.test import single_gpu_test
+from big_detection.mmdet.datasets.builder import build_dataset, build_dataloader
+from big_detection.mmdet.datasets.utils import replace_ImageToTensor
+
+
+# from big_detection.mmdet.apis import single_gpu_test
+# from big_detection.mmdet.datasets import replace_ImageToTensor, build_dataset, build_dataloader
 
 
 def parse_args():
@@ -19,8 +23,8 @@ def parse_args():
         '--format-only',
         action='store_true',
         help='Format the output results without perform evaluation. It is'
-        'useful when you want to format the result to a specific format and '
-        'submit it to the test server')
+             'useful when you want to format the result to a specific format and '
+             'submit it to the test server')
     parser.add_argument(
         '--backend',
         required=True,
@@ -31,7 +35,7 @@ def parse_args():
         type=str,
         nargs='+',
         help='evaluation metrics, which depends on the dataset, e.g., "bbox",'
-        ' "segm", "proposal" for COCO, and "mAP", "recall" for PASCAL VOC')
+             ' "segm", "proposal" for COCO, and "mAP", "recall" for PASCAL VOC')
     parser.add_argument('--show', action='store_true', help='show results')
     parser.add_argument(
         '--show-dir', help='directory where painted images will be saved')
@@ -45,17 +49,17 @@ def parse_args():
         nargs='+',
         action=DictAction,
         help='override some settings in the used config, the key-value pair '
-        'in xxx=yyy format will be merged into config file. If the value to '
-        'be overwritten is a list, it should be like key="[a,b]" or key=a,b '
-        'It also allows nested list/tuple values, e.g. key="[(a,b),(c,d)]" '
-        'Note that the quotation marks are necessary and that no white space '
-        'is allowed.')
+             'in xxx=yyy format will be merged into config file. If the value to '
+             'be overwritten is a list, it should be like key="[a,b]" or key=a,b '
+             'It also allows nested list/tuple values, e.g. key="[(a,b),(c,d)]" '
+             'Note that the quotation marks are necessary and that no white space '
+             'is allowed.')
     parser.add_argument(
         '--eval-options',
         nargs='+',
         action=DictAction,
         help='custom options for evaluation, the key-value pair in xxx=yyy '
-        'format will be kwargs for dataset.evaluate() function')
+             'format will be kwargs for dataset.evaluate() function')
 
     args = parser.parse_args()
     return args
@@ -65,7 +69,7 @@ def main():
     args = parse_args()
 
     assert args.out or args.eval or args.format_only or args.show \
-        or args.show_dir, \
+           or args.show_dir, \
         ('Please specify at least one operation (save/eval/format/show the '
          'results / save the results) with the argument "--out", "--eval"'
          ', "--format-only", "--show" or "--show-dir"')
@@ -130,8 +134,8 @@ def main():
         eval_kwargs = cfg.get('evaluation', {}).copy()
         # hard-code way to remove EvalHook args
         for key in [
-                'interval', 'tmpdir', 'start', 'gpu_collect', 'save_best',
-                'rule'
+            'interval', 'tmpdir', 'start', 'gpu_collect', 'save_best',
+            'rule'
         ]:
             eval_kwargs.pop(key, None)
         eval_kwargs.update(dict(metric=args.eval, **kwargs))

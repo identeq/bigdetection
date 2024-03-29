@@ -2,9 +2,14 @@ import torch.nn as nn
 from mmcv.cnn import ConvModule, normal_init
 from mmcv.ops import DeformConv2d
 
-from big_detection.mmdet import multi_apply
-from ..builder import HEADS, build_loss
-from .corner_head import CornerHead
+from big_detection.mmdet.core.utils.misc import multi_apply
+from big_detection.mmdet.models.builder import HEADS, build_loss
+from big_detection.mmdet.models.dense_heads.corner_head import CornerHead
+
+
+# from ..builder import HEADS, build_loss
+# from .corner_head import CornerHead
+# from ...core import multi_apply
 
 
 @HEADS.register_module()

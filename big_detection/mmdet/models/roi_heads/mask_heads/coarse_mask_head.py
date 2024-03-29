@@ -1,8 +1,12 @@
 from mmcv.cnn import ConvModule, Linear
 from mmcv.runner import ModuleList, auto_fp16
 
-from big_detection.mmdet import HEADS
-from .fcn_mask_head import FCNMaskHead
+from big_detection.mmdet.models.builder import HEADS
+from big_detection.mmdet.models.roi_heads.mask_heads.fcn_mask_head import FCNMaskHead
+
+
+# from big_detection.mmdet.models import HEADS
+# from .fcn_mask_head import FCNMaskHead
 
 
 @HEADS.register_module()

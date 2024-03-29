@@ -1,8 +1,8 @@
 import torch
 
-from ..builder import BBOX_SAMPLERS
-from .base_sampler import BaseSampler
-from .sampling_result import SamplingResult
+from big_detection.mmdet.core.bbox.builder import BBOX_SAMPLERS
+from big_detection.mmdet.core.bbox.samplers.base_sampler import BaseSampler
+from big_detection.mmdet.core.bbox.samplers.sampling_result import SamplingResult
 
 
 @BBOX_SAMPLERS.register_module()

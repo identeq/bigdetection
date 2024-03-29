@@ -2,7 +2,7 @@ from abc import ABCMeta, abstractmethod
 
 import torch
 
-from .sampling_result import SamplingResult
+from big_detection.mmdet.core.bbox.samplers.sampling_result import SamplingResult
 
 
 class BaseSampler(metaclass=ABCMeta):
@@ -52,9 +52,9 @@ class BaseSampler(metaclass=ABCMeta):
             :obj:`SamplingResult`: Sampling result.
 
         Example:
-            >>> from mmdet.core.bbox import RandomSampler
-            >>> from mmdet.core.bbox import AssignResult
-            >>> from mmdet.core.bbox.demodata import ensure_rng, random_boxes
+            >>> from big_detection.mmdet.core.bbox.samplers import RandomSampler
+            >>> from big_detection.mmdet.core.bbox.assigners import AssignResult
+            >>> from big_detection.mmdet.core.bbox.demodata import ensure_rng, random_boxes
             >>> rng = ensure_rng(None)
             >>> assign_result = AssignResult.random(rng=rng)
             >>> bboxes = random_boxes(assign_result.num_preds, rng=rng)

@@ -5,7 +5,10 @@ import torch.nn.functional as F
 from mmcv.cnn import ConvModule
 from mmcv.runner import BaseModule
 
-from big_detection.mmdet import HEADS, build_loss
+from big_detection.mmdet.models.builder import HEADS, build_loss
+
+
+# from big_detection.mmdet.models import HEADS, build_loss
 
 
 @HEADS.register_module()

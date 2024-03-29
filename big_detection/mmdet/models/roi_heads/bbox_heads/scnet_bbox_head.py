@@ -1,5 +1,7 @@
-from big_detection.mmdet import HEADS
-from .convfc_bbox_head import ConvFCBBoxHead
+# from big_detection.mmdet.models import HEADS
+# from .convfc_bbox_head import ConvFCBBoxHead
+from big_detection.mmdet.models.builder import HEADS
+from big_detection.mmdet.models.roi_heads.bbox_heads.convfc_bbox_head import ConvFCBBoxHead
 
 
 @HEADS.register_module()

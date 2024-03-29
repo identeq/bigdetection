@@ -4,13 +4,24 @@ import torch.nn as nn
 from mmcv.cnn import ConvModule
 from mmcv.runner import force_fp32
 
-from big_detection.mmdet import (build_anchor_generator, build_assigner,
-                                 build_bbox_coder, build_sampler, images_to_levels,
-                                 multi_apply, multiclass_nms, unmap)
-from ..builder import HEADS, build_loss
-from .base_dense_head import BaseDenseHead
-from .dense_test_mixins import BBoxTestMixin
-from .guided_anchor_head import GuidedAnchorHead
+from big_detection.mmdet.core.anchor.builder import build_anchor_generator
+from big_detection.mmdet.core.anchor.utils import images_to_levels
+from big_detection.mmdet.core.bbox.builder import build_bbox_coder, build_assigner, build_sampler
+from big_detection.mmdet.core.post_processing.bbox_nms import multiclass_nms
+from big_detection.mmdet.core.utils.misc import multi_apply, unmap
+from big_detection.mmdet.models.builder import HEADS, build_loss
+from big_detection.mmdet.models.dense_heads.base_dense_head import BaseDenseHead
+from big_detection.mmdet.models.dense_heads.dense_test_mixins import BBoxTestMixin
+from big_detection.mmdet.models.dense_heads.guided_anchor_head import GuidedAnchorHead
+
+
+# from big_detection.mmdet.core. import (build_anchor_generator, build_assigner,
+#                                  build_bbox_coder, build_sampler, images_to_levels,
+#                                  multi_apply, multiclass_nms, unmap)
+# from ..builder import HEADS, build_loss
+# from .base_dense_head import BaseDenseHead
+# from .dense_test_mixins import BBoxTestMixin
+# from .guided_anchor_head import GuidedAnchorHead
 
 
 @HEADS.register_module()

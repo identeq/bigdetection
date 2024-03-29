@@ -7,10 +7,16 @@ import torch
 import torch.nn.functional as F
 from mmcv.ops import point_sample, rel_roi_point_to_rel_img_point
 
-from big_detection.mmdet import bbox2roi, bbox_mapping, merge_aug_masks
-from .. import builder
-from ..builder import HEADS
-from .standard_roi_head import StandardRoIHead
+from big_detection.mmdet.core.bbox.transforms import bbox2roi, bbox_mapping
+from big_detection.mmdet.core.post_processing.merge_augs import merge_aug_masks
+from big_detection.mmdet.models import builder
+from big_detection.mmdet.models.builder import HEADS
+from big_detection.mmdet.models.roi_heads.standard_roi_head import StandardRoIHead
+
+# from big_detection.mmdet.core import bbox2roi, bbox_mapping, merge_aug_masks
+# from .. import builder
+# from ..builder import HEADS
+# from .standard_roi_head import StandardRoIHead
 
 logger = logging.getLogger(__name__)
 

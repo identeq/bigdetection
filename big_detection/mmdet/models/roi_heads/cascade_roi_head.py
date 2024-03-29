@@ -3,12 +3,23 @@ import torch
 import torch.nn as nn
 from mmcv.runner import ModuleList
 
-from big_detection.mmdet import (bbox2result, bbox2roi, bbox_mapping, build_assigner,
-                                 build_sampler, merge_aug_bboxes, merge_aug_masks,
-                                 multiclass_nms)
-from ..builder import HEADS, build_head, build_roi_extractor
-from .base_roi_head import BaseRoIHead
-from .test_mixins import BBoxTestMixin, MaskTestMixin
+from big_detection.mmdet.core.bbox.builder import build_assigner, build_sampler
+from big_detection.mmdet.core.bbox.transforms import bbox2roi, bbox2result, bbox_mapping
+from big_detection.mmdet.core.post_processing.bbox_nms import multiclass_nms
+from big_detection.mmdet.core.post_processing.merge_augs import merge_aug_masks, merge_aug_bboxes
+from big_detection.mmdet.models.builder import HEADS, build_roi_extractor, build_head
+from big_detection.mmdet.models.dense_heads.dense_test_mixins import BBoxTestMixin
+from big_detection.mmdet.models.roi_heads.base_roi_head import BaseRoIHead
+from big_detection.mmdet.models.roi_heads.test_mixins import MaskTestMixin
+
+
+# from .base_roi_head import BaseRoIHead
+# from .test_mixins import BBoxTestMixin, MaskTestMixin
+# from ..builder import HEADS, build_head, build_roi_extractor
+# from ...core.bbox.builder import build_assigner, build_sampler
+# from ...core.bbox.transforms import bbox2roi, bbox2result, bbox_mapping
+# from ...core.post_processing.bbox_nms import multiclass_nms
+# from ...core.post_processing.merge_augs import merge_aug_masks, merge_aug_bboxes
 
 
 @HEADS.register_module()
@@ -123,7 +134,7 @@ class CascadeRoIHead(BaseRoIHead, BBoxTestMixin, MaskTestMixin):
             mask_rois = rois[:100]
             for i in range(self.num_stages):
                 mask_results = self._mask_forward(i, x, mask_rois)
-                outs = outs + (mask_results['mask_pred'], )
+                outs = outs + (mask_results['mask_pred'],)
         return outs
 
     def _bbox_forward(self, stage, x, rois):

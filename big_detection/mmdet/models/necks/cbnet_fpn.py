@@ -2,9 +2,13 @@ import torch.nn as nn
 import torch.nn.functional as F
 from mmcv.cnn import xavier_init
 
-from ..builder import NECKS
-from .fpn import FPN
-from .. import builder
+from big_detection.mmdet.models.builder import NECKS
+from big_detection.mmdet.models.necks.fpn import FPN
+
+
+# from ..builder import NECKS
+# from .fpn import FPN
+# from .. import builder
 
 @NECKS.register_module()
 class CBFPN(FPN):

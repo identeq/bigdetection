@@ -1,9 +1,9 @@
 import torch
 
-from mmdet.core import anchor_inside_flags
-from ..builder import BBOX_ASSIGNERS
-from .assign_result import AssignResult
-from .base_assigner import BaseAssigner
+from big_detection.mmdet.core.anchor.utils import anchor_inside_flags
+from big_detection.mmdet.core.bbox.assigners.assign_result import AssignResult
+from big_detection.mmdet.core.bbox.assigners.base_assigner import BaseAssigner
+from big_detection.mmdet.core.bbox.builder import BBOX_ASSIGNERS
 
 
 def calc_region(bbox, ratio, stride, featmap_size=None):

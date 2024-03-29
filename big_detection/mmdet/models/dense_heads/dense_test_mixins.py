@@ -3,10 +3,12 @@ from inspect import signature
 
 import torch
 
-from mmdet.core import bbox_mapping_back, merge_aug_proposals, multiclass_nms
+from big_detection.mmdet.core.bbox.transforms import bbox_mapping_back
+from big_detection.mmdet.core.post_processing.bbox_nms import multiclass_nms
+from big_detection.mmdet.core.post_processing.merge_augs import merge_aug_proposals
 
 if sys.version_info >= (3, 7):
-    from mmdet.utils.contextmanagers import completed
+    from big_detection.mmdet.utils.contextmanagers import completed
 
 
 class BBoxTestMixin(object):

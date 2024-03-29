@@ -1,6 +1,9 @@
-from big_detection.mmdet import HEADS
-from big_detection.mmdet import ResLayer, SimplifiedBasicBlock
-from .fused_semantic_head import FusedSemanticHead
+# from big_detection.mmdet.models import HEADS
+# from ...utils import ResLayer, SimplifiedBasicBlock
+# from .fused_semantic_head import FusedSemanticHead
+from big_detection.mmdet.models.builder import HEADS
+from big_detection.mmdet.models.roi_heads.mask_heads.fused_semantic_head import FusedSemanticHead
+from big_detection.mmdet.models.utils.res_layer import ResLayer, SimplifiedBasicBlock
 
 
 @HEADS.register_module()

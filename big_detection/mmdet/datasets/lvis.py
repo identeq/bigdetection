@@ -9,8 +9,8 @@ import numpy as np
 from mmcv.utils import print_log
 from terminaltables import AsciiTable
 
-from .builder import DATASETS
-from .coco import CocoDataset
+from big_detection.mmdet.datasets.builder import DATASETS
+from big_detection.mmdet.datasets.coco import CocoDataset
 
 
 @DATASETS.register_module()

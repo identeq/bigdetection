@@ -3,7 +3,10 @@ from mmcv.cnn import ConvModule
 from mmcv.ops.merge_cells import GlobalPoolingCell, SumCell
 from mmcv.runner import BaseModule, ModuleList
 
-from ..builder import NECKS
+from big_detection.mmdet.models.builder import NECKS
+
+
+# from ..builder import NECKS
 
 
 @NECKS.register_module()

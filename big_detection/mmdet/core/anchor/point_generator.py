@@ -2,7 +2,7 @@ import numpy as np
 import torch
 from torch.nn.modules.utils import _pair
 
-from .builder import PRIOR_GENERATORS
+from big_detection.mmdet.core.anchor.builder import PRIOR_GENERATORS
 
 
 @PRIOR_GENERATORS.register_module()

@@ -9,10 +9,13 @@ import torch
 from mmcv import Config
 from mmcv.tensorrt import is_tensorrt_plugin_loaded, onnx2trt, save_trt_engine
 
-from big_detection.mmdet import preprocess_example_input
-from big_detection.mmdet.core.export import (ONNXRuntimeDetector,
-                                             TensorRTDetector)
-from big_detection.mmdet import DATASETS
+# from big_detection.mmdet.core.export import preprocess_example_input
+from big_detection.mmdet.core.export.model_wrappers import ONNXRuntimeDetector, TensorRTDetector
+from big_detection.mmdet.core.export.pytorch2onnx import preprocess_example_input
+from big_detection.mmdet.datasets.builder import DATASETS
+
+
+# from big_detection.mmdet.datasets import DATASETS
 
 
 def get_GiB(x: int):

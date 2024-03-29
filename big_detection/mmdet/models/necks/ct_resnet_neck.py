@@ -4,7 +4,10 @@ import torch.nn as nn
 from mmcv.cnn import ConvModule
 from mmcv.runner import BaseModule, auto_fp16
 
-from big_detection.mmdet import NECKS
+from big_detection.mmdet.models.builder import NECKS
+
+
+# from big_detection.mmdeet.models import NECKS
 
 
 @NECKS.register_module()

@@ -9,8 +9,11 @@ from mmcv.ops.carafe import CARAFEPack
 from mmcv.runner import BaseModule, ModuleList, auto_fp16, force_fp32
 from torch.nn.modules.utils import _pair
 
-from big_detection.mmdet import mask_target
-from big_detection.mmdet import HEADS, build_loss
+from big_detection.mmdet.core.mask.mask_target import mask_target
+from big_detection.mmdet.models.builder import HEADS, build_loss
+
+# from big_detection.mmdet.core import mask_target
+# from big_detection.mmdet.models import HEADS, build_loss
 
 BYTES_PER_FLOAT = 4
 # TODO: This memory limit may be too much or too little. It would be better to

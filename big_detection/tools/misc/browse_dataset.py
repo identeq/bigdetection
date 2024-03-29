@@ -5,9 +5,14 @@ from pathlib import Path
 import mmcv
 from mmcv import Config, DictAction
 
-from big_detection.mmdet import mask2ndarray
-from big_detection.mmdet import imshow_det_bboxes
-from big_detection.mmdet import build_dataset
+from big_detection.mmdet.core.utils.misc import mask2ndarray
+from big_detection.mmdet.core.visualization.image import imshow_det_bboxes
+from big_detection.mmdet.datasets.builder import build_dataset
+
+
+# from big_detection.mmdet.core import mask2ndarray
+# from big_detection.mmdet.core.visualization import imshow_det_bboxes
+# from big_detection.mmdet.datasets import build_dataset
 
 
 def parse_args():

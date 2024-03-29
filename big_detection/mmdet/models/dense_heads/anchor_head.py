@@ -2,12 +2,21 @@ import torch
 import torch.nn as nn
 from mmcv.runner import force_fp32
 
-from big_detection.mmdet import (anchor_inside_flags, build_anchor_generator,
-                                 build_assigner, build_bbox_coder, build_sampler,
-                                 images_to_levels, multi_apply, multiclass_nms, unmap)
-from ..builder import HEADS, build_loss
-from .base_dense_head import BaseDenseHead
-from .dense_test_mixins import BBoxTestMixin
+from big_detection.mmdet.core.anchor.builder import build_anchor_generator
+from big_detection.mmdet.core.anchor.utils import anchor_inside_flags, images_to_levels
+from big_detection.mmdet.core.bbox.builder import build_bbox_coder, build_assigner, build_sampler
+from big_detection.mmdet.core.post_processing.bbox_nms import multiclass_nms
+from big_detection.mmdet.core.utils.misc import multi_apply, unmap
+from big_detection.mmdet.models.builder import HEADS, build_loss
+from big_detection.mmdet.models.dense_heads.base_dense_head import BaseDenseHead
+from big_detection.mmdet.models.dense_heads.dense_test_mixins import BBoxTestMixin
+
+
+# from ..builder import HEADS, build_loss
+# from .base_dense_head import BaseDenseHead
+# from .dense_test_mixins import BBoxTestMixin
+# from ...core import build_bbox_coder, build_assigner, multi_apply, anchor_inside_flags, unmap, images_to_levels, \
+#     build_sampler, build_anchor_generator, multiclass_nms
 
 
 @HEADS.register_module()
@@ -652,7 +661,7 @@ class AnchorHead(BaseDenseHead, BBoxTestMixin):
                                           1).reshape(batch_size, -1, 4)
             anchors = anchors.expand_as(bbox_pred)
             # Always keep topk op for dynamic input in onnx
-            from big_detection.mmdet.core.export import get_k_for_topk
+            from big_detection.mmdet.core.export.onnx_helper import get_k_for_topk
             nms_pre = get_k_for_topk(nms_pre_tensor, bbox_pred.shape[1])
             if nms_pre > 0:
                 # Get maximum scores for foreground classes.

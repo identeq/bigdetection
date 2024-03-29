@@ -1,8 +1,13 @@
 import torch
 
-from big_detection.mmdet import bbox2result
-from ..builder import DETECTORS, build_head
-from .single_stage import SingleStageDetector
+from big_detection.mmdet.core.bbox.transforms import bbox2result
+from big_detection.mmdet.models.builder import DETECTORS, build_head
+from big_detection.mmdet.models.detectors.single_stage import SingleStageDetector
+
+
+# from big_detection.mmdet.core import bbox2result
+# from ..builder import DETECTORS, build_head
+# from .single_stage import SingleStageDetector
 
 
 @DETECTORS.register_module()

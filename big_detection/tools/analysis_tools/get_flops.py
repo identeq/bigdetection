@@ -3,7 +3,9 @@ import argparse
 import torch
 from mmcv import Config, DictAction
 
-from big_detection.mmdet import build_detector
+from big_detection.mmdet.models.builder import build_detector
+
+# from big_detection.mmdet.models import build_detector
 
 try:
     from mmcv.cnn import get_model_complexity_info

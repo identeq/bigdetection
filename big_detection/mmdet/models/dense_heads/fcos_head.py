@@ -4,9 +4,16 @@ import torch.nn.functional as F
 from mmcv.cnn import Scale
 from mmcv.runner import force_fp32
 
-from mmdet.core import distance2bbox, multi_apply, multiclass_nms, reduce_mean
-from ..builder import HEADS, build_loss
-from .anchor_free_head import AnchorFreeHead
+from big_detection.mmdet.core.bbox.transforms import distance2bbox
+from big_detection.mmdet.core.post_processing.bbox_nms import multiclass_nms
+from big_detection.mmdet.core.utils.dist_utils import reduce_mean
+from big_detection.mmdet.core.utils.misc import multi_apply
+from big_detection.mmdet.models.builder import HEADS, build_loss
+from big_detection.mmdet.models.dense_heads.anchor_free_head import AnchorFreeHead
+
+# from big_detection.mmdet.core import distance2bbox, multi_apply, multiclass_nms, reduce_mean
+# from ..builder import HEADS, build_loss
+# from .anchor_free_head import AnchorFreeHead
 
 INF = 1e8
 
@@ -389,7 +396,7 @@ class FCOSHead(AnchorFreeHead):
                                           1).reshape(batch_size, -1, 4)
             points = points.expand(batch_size, -1, 2)
             # Get top-k prediction
-            from big_detection.mmdet.core.export import get_k_for_topk
+            from big_detection.mmdet.core.export.onnx_helper import get_k_for_topk
             nms_pre = get_k_for_topk(nms_pre_tensor, bbox_pred.shape[1])
             if nms_pre > 0:
                 max_scores, _ = (scores * centerness[..., None]).max(-1)

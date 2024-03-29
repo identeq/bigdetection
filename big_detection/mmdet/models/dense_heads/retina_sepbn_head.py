@@ -1,8 +1,12 @@
 import torch.nn as nn
 from mmcv.cnn import ConvModule, bias_init_with_prob, normal_init
 
-from ..builder import HEADS
-from .anchor_head import AnchorHead
+from big_detection.mmdet.models.builder import HEADS
+from big_detection.mmdet.models.dense_heads.anchor_head import AnchorHead
+
+
+# from ..builder import HEADS
+# from .anchor_head import AnchorHead
 
 
 @HEADS.register_module()

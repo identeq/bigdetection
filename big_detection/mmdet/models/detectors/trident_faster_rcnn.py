@@ -1,5 +1,7 @@
-from ..builder import DETECTORS
-from .faster_rcnn import FasterRCNN
+# from ..builder import DETECTORS
+# from .faster_rcnn import FasterRCNN
+from big_detection.mmdet.models.builder import DETECTORS
+from big_detection.mmdet.models.detectors.faster_rcnn import FasterRCNN
 
 
 @DETECTORS.register_module()

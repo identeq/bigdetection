@@ -7,8 +7,8 @@ import torch.nn.functional as F
 from mmcv import ConfigDict
 from mmcv.ops import nms
 
-from ..builder import HEADS
-from .guided_anchor_head import GuidedAnchorHead
+from big_detection.mmdet.models.builder import HEADS
+from big_detection.mmdet.models.dense_heads.guided_anchor_head import GuidedAnchorHead
 
 
 @HEADS.register_module()

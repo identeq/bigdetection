@@ -8,9 +8,14 @@ from mmcv.cnn import fuse_conv_bn
 from mmcv.parallel import MMDistributedDataParallel
 from mmcv.runner import init_dist, load_checkpoint, wrap_fp16_model
 
-from big_detection.mmdet import (build_dataloader, build_dataset,
-                                 replace_ImageToTensor)
-from big_detection.mmdet import build_detector
+from big_detection.mmdet.datasets.builder import build_dataset, build_dataloader
+from big_detection.mmdet.datasets.utils import replace_ImageToTensor
+from big_detection.mmdet.models.builder import build_detector
+
+
+# from big_detection.mmdet.datasets import (build_dataloader, build_dataset,
+#                                           replace_ImageToTensor)
+# from big_detection.mmdet.models import build_detector
 
 
 def parse_args():
@@ -25,17 +30,17 @@ def parse_args():
         '--fuse-conv-bn',
         action='store_true',
         help='Whether to fuse conv and bn, this will slightly increase'
-        'the inference speed')
+             'the inference speed')
     parser.add_argument(
         '--cfg-options',
         nargs='+',
         action=DictAction,
         help='override some settings in the used config, the key-value pair '
-        'in xxx=yyy format will be merged into config file. If the value to '
-        'be overwritten is a list, it should be like key="[a,b]" or key=a,b '
-        'It also allows nested list/tuple values, e.g. key="[(a,b),(c,d)]" '
-        'Note that the quotation marks are necessary and that no white space '
-        'is allowed.')
+             'in xxx=yyy format will be merged into config file. If the value to '
+             'be overwritten is a list, it should be like key="[a,b]" or key=a,b '
+             'It also allows nested list/tuple values, e.g. key="[(a,b),(c,d)]" '
+             'Note that the quotation marks are necessary and that no white space '
+             'is allowed.')
     parser.add_argument(
         '--launcher',
         choices=['none', 'pytorch', 'slurm', 'mpi'],

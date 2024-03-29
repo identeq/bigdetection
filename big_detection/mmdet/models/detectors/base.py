@@ -7,7 +7,7 @@ import torch
 import torch.distributed as dist
 from mmcv.runner import BaseModule, auto_fp16
 
-from big_detection.mmdet.core.visualization import imshow_det_bboxes
+from big_detection.mmdet.core.visualization.image import imshow_det_bboxes
 
 
 class BaseDetector(BaseModule, metaclass=ABCMeta):

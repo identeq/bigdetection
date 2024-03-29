@@ -1,7 +1,7 @@
 import torch
 from mmcv.ops.nms import batched_nms
 
-from big_detection.mmdet.core.bbox.iou_calculators import bbox_overlaps
+from big_detection.mmdet.core.evaluation.bbox_overlaps import bbox_overlaps
 
 
 def multiclass_nms(multi_bboxes,

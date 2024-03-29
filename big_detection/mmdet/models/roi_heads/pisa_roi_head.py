@@ -1,7 +1,11 @@
-from big_detection.mmdet import bbox2roi
-from ..builder import HEADS
-from ..losses.pisa_loss import carl_loss, isr_p
-from .standard_roi_head import StandardRoIHead
+# from big_detection.mmdet.core import bbox2roi
+# from ..builder import HEADS
+# from ..losses.pisa_loss import carl_loss, isr_p
+# from .standard_roi_head import StandardRoIHead
+from big_detection.mmdet.core.bbox.transforms import bbox2roi
+from big_detection.mmdet.models.builder import HEADS
+from big_detection.mmdet.models.losses.pisa_loss import isr_p, carl_loss
+from big_detection.mmdet.models.roi_heads.standard_roi_head import StandardRoIHead
 
 
 @HEADS.register_module()

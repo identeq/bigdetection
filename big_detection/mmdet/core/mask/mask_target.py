@@ -21,8 +21,8 @@ def mask_target(pos_proposals_list, pos_assigned_gt_inds_list, gt_masks_list,
 
     Example:
         >>> from big_detection import mmdet        >>> import mmcv
-        >>> from mmdet.core.mask import BitmapMasks
-        >>> from mmdet.core.mask.mask_target import *
+        >>> from big_detection.mmdet.core.mask import BitmapMasks
+        >>> from big_detection.mmdet.core.mask.mask_target import *
         >>> H, W = 17, 18
         >>> cfg = mmcv.Config({'mask_size': (13, 14)})
         >>> rng = np.random.RandomState(0)

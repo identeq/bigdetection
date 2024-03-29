@@ -2,8 +2,12 @@ import torch.nn as nn
 from mmcv.cnn import ConvModule
 from mmcv.runner import BaseModule, auto_fp16, force_fp32
 
-from big_detection.mmdet import HEADS
-from big_detection.mmdet import ResLayer, SimplifiedBasicBlock
+from big_detection.mmdet.models.builder import HEADS
+from big_detection.mmdet.models.utils.res_layer import ResLayer, SimplifiedBasicBlock
+
+
+# from big_detection.mmdet.models import HEADS
+# from big_detection.mmdet.models.utils import SimplifiedBasicBlock, ResLayer
 
 
 @HEADS.register_module()

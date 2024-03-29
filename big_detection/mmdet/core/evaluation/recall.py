@@ -4,11 +4,10 @@ import numpy as np
 from mmcv.utils import print_log
 from terminaltables import AsciiTable
 
-from .bbox_overlaps import bbox_overlaps
+from big_detection.mmdet.core.evaluation.bbox_overlaps import bbox_overlaps
 
 
 def _recalls(all_ious, proposal_nums, thrs):
-
     img_num = all_ious.shape[0]
     total_gt_num = sum([ious.shape[0] for ious in all_ious])
 

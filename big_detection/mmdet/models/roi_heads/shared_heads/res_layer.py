@@ -3,9 +3,12 @@ import warnings
 import torch.nn as nn
 from mmcv.runner import BaseModule, auto_fp16
 
-from big_detection.mmdet import ResNet
-from big_detection.mmdet import SHARED_HEADS
-from big_detection.mmdet import ResLayer as _ResLayer
+from big_detection.mmdet.models.backbones.resnet import ResNet
+from big_detection.mmdet.models.builder import SHARED_HEADS
+from big_detection.mmdet.models.utils.res_layer import ResLayer as _ResLayer
+
+# from big_detection.mmdet.models import ResLayer as _ResLayer
+# from big_detection.mmdet.models import SHARED_HEADS, ResNet
 
 
 @SHARED_HEADS.register_module()

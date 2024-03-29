@@ -5,12 +5,19 @@ from mmcv.cnn import (bias_init_with_prob, build_activation_layer,
 from mmcv.cnn.bricks.transformer import FFN, MultiheadAttention
 from mmcv.runner import auto_fp16, force_fp32
 
-from big_detection.mmdet import multi_apply
-from big_detection.mmdet import HEADS, build_loss
-from big_detection.mmdet.models.dense_heads import reduce_mean
-from big_detection.mmdet import accuracy
-from big_detection.mmdet import build_transformer
-from .bbox_head import BBoxHead
+from big_detection.mmdet.core.utils.dist_utils import reduce_mean
+from big_detection.mmdet.core.utils.misc import multi_apply
+from big_detection.mmdet.models.builder import HEADS, build_loss
+from big_detection.mmdet.models.losses.accuracy import accuracy
+from big_detection.mmdet.models.roi_heads.bbox_heads.bbox_head import BBoxHead
+from big_detection.mmdet.models.utils.builder import build_transformer
+
+
+# from big_detection.mmdet.core import multi_apply, reduce_mean
+# from big_detection.mmdet.models import HEADS, build_loss
+# from big_detection.mmdet.models import accuracy
+# from .bbox_head import BBoxHead
+# from ...utils import build_transformer
 
 
 @HEADS.register_module()

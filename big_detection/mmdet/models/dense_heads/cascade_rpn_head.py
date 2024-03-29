@@ -8,11 +8,19 @@ from mmcv import ConfigDict
 from mmcv.ops import DeformConv2d, batched_nms
 from mmcv.runner import BaseModule, ModuleList
 
-from big_detection.mmdet import (RegionAssigner, build_assigner, build_sampler,
-                                 images_to_levels, multi_apply)
-from ..builder import HEADS, build_head
-from .base_dense_head import BaseDenseHead
-from .rpn_head import RPNHead
+from big_detection.mmdet.core.anchor.utils import images_to_levels
+from big_detection.mmdet.core.bbox.assigners.region_assigner import RegionAssigner
+from big_detection.mmdet.core.bbox.builder import build_assigner, build_sampler
+from big_detection.mmdet.core.utils.misc import multi_apply
+from big_detection.mmdet.models.builder import HEADS, build_head
+from big_detection.mmdet.models.dense_heads.base_dense_head import BaseDenseHead
+from big_detection.mmdet.models.dense_heads.rpn_head import RPNHead
+
+
+# from ..builder import HEADS, build_head
+# from .base_dense_head import BaseDenseHead
+# from .rpn_head import RPNHead
+# from ...core import build_assigner, build_sampler, multi_apply, images_to_levels, RegionAssigner
 
 
 class AdaptiveConv(BaseModule):
