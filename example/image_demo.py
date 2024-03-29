@@ -5,12 +5,12 @@
 """
 import time
 
-from big_detection.mmdet import init_detector, inference_detector, show_result_pyplot
+from big_detection.mmdet.apis.inference import init_detector, inference_detector, show_result_pyplot
 
 
 def image_od_demo():
     # build the model from a config and a checkpoint file
-    config = "/home/dell/Documents/git_repos/bigdetection/configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_bigdet.py"
+    config = "/home/dell/Documents/git_repos/bigdetection/big_detection/configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_bigdet.py"
     checkpoint = "htc_cbv2_swin_base_giou_4conv1f_bigdet.pth"
     device = "cpu"
     img = "/home/dell/Documents/git_repos/big_detection_test_result/demo_input/demo8.jpg"
