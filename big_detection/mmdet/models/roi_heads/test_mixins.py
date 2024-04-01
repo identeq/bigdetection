@@ -13,7 +13,7 @@ from big_detection.mmdet.core.post_processing.merge_augs import merge_aug_bboxes
 
 logger = logging.getLogger(__name__)
 if sys.version_info >= (3, 7):
-    from big_detection.mmdet import completed
+    from big_detection.mmdet.utils.contextmanagers import completed
 
 
 class BBoxTestMixin:
