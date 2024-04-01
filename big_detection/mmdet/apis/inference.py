@@ -1,3 +1,4 @@
+import os
 import warnings
 
 import mmcv
@@ -55,6 +56,60 @@ def init_detector(config, checkpoint=None, device='cuda:0', cfg_options=None):
     model.to(device)
     model.eval()
     return model
+
+
+def init_detector_v1(checkpoint=None, device='cuda:0', cfg_options=None):
+    # default htc_cbv2_swin_base_giou_4conv1f_bigdet.pth is used for object detection
+    """Initialize a detector from config file.
+
+    Args:
+        checkpoint (str, optional): Checkpoint path. If left as None, the model
+            will not load any weights.
+        cfg_options (dict): Options to override some settings in the used
+            config.
+
+    Returns:
+        nn.Module: The constructed detector.
+    """
+    config = os.path.join(get_lib_path(),
+                          "configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_bigdet.py")
+    if isinstance(config, str):
+        config = mmcv.Config.fromfile(config)
+    elif not isinstance(config, mmcv.Config):
+        raise TypeError('config must be a filename or Config object, '
+                        f'but got {type(config)}')
+    if cfg_options is not None:
+        config.merge_from_dict(cfg_options)
+    config.model.pretrained = None
+    config.model.train_cfg = None
+    model = build_detector(config.model, test_cfg=config.get('test_cfg'))
+    if checkpoint is not None:
+        map_loc = 'cpu' if device == 'cpu' else None
+        checkpoint = load_checkpoint(model, checkpoint, map_location=map_loc)
+        if 'CLASSES' in checkpoint.get('meta', {}):
+            # model.CLASSES = checkpoint['meta']['CLASSES']
+            if len(checkpoint['meta']['CLASSES']) == 600:
+                model.CLASSES = get_classes('bigdetection')  # The order of CLASSES saved in checkpoint.meta in wrong.
+            else:
+                model.CLASSES = checkpoint['meta']['CLASSES']
+        else:
+            warnings.simplefilter('once')
+            warnings.warn('Class names are not saved in the checkpoint\'s '
+                          'meta data, use COCO classes by default.')
+            model.CLASSES = get_classes('coco')
+    model.cfg = config  # save the config in the model for convenience
+    model.to(device)
+    model.eval()
+    return model
+
+
+def get_lib_path():
+    library_name = 'big_detection'
+    import importlib
+    library = importlib.import_module(library_name)
+    library_path = library.__file__
+    library_directory = os.path.dirname(library_path)
+    return library_directory
 
 
 class LoadImage:
