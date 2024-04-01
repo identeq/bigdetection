@@ -13,9 +13,9 @@ def image_od_demo():
     config = "/home/dell/Documents/git_repos/bigdetection/big_detection/configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_bigdet.py"
     checkpoint = "htc_cbv2_swin_base_giou_4conv1f_bigdet.pth"
     device = "cpu"
-    img = "/home/dell/Documents/git_repos/big_detection_test_result/demo_input/demo8.jpg"
+    img = "/home/dell/Documents/git_repos/big_detection_test_result/demo_input/demo4.png"
     score_thr = 0.3
-    out_file = "/home/dell/Documents/demo_output8.jpg"
+    out_file = "/home/dell/Documents/demo4_output.jpg"
     start_time = time.time()
     print("Start time: ", start_time)
     model = init_detector(config, checkpoint, device=device)
