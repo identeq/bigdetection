@@ -31,8 +31,8 @@ six==1.16.0
 terminaltables==3.1.10
 timm==0.9.16
 tomli==2.0.1
-torch==1.10.0
-torchvision==0.11.1
+torch==1.11.0
+torchvision==0.12.0
 tqdm==4.66.2
 typing_extensions==4.10.0
 urllib3==2.2.1
