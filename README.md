@@ -5,14 +5,14 @@ By [Likun Cai](https://github.com/cailk), Zhi Zhang, Yi Zhu, Li Zhang, Mu Li, Xi
 <!-- <div align="center">
     <img src="./resources/bigdetection.png" height="250px" />
 </div> -->
-![](./resources/bigdetection.png)
+![](big_detection/resources/bigdetection.png)
 
 This repo is the official implementation of [BigDetection](https://arxiv.org/abs/2203.13249). It is based on [mmdetection](https://github.com/open-mmlab/mmdetection) and [CBNetV2](https://github.com/VDIGPKU/CBNetV2).
 
 ## Introduction
 We construct a new large-scale benchmark termed *BigDetection*. Our goal is to simply leverage the training data from existing datasets ([LVIS](https://www.lvisdataset.org/), [OpenImages](https://storage.googleapis.com/openimages/web/index.html) and [Object365](https://www.objects365.org/overview.html)) with carefully designed principles, and curate a larger dataset for improved detector pre-training. BigDetection dataset has 600 object categories and contains 3.4M training images with 36M object bounding boxes. We show some important statistics of BigDetection in the following figure.
 
-![](./resources/bigdet_statistics.png)
+![](big_detection/resources/bigdet_statistics.png)
 *Left*: Number of images per category of BigDetection. *Right*: Number of instances in different object sizes. 
 
 ## Results and Models
@@ -22,27 +22,27 @@ We show the evaluation results on BigDetection Validation. We hope BigDetection 
 
 | Method | mAP (bigdet val) | Links |
 | --- | :---: | :---: |
-| YOLOv3 | 9.7 | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/mmdetection_cpts/yolov3_d53_bigdet_8x.pth)/[config](configs/BigDetection/yolov3/yolov3_d53_mstrain-608_8x_bigdet.py) |
-| Deformable DETR | 13.1 | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/mmdetection_cpts/deformable_detr_bigdet_8x.pth)/[config](configs/BigDetection/deformable_detr/deformable_detr_r50_16x2_8x_bigdet.py) |
+| YOLOv3 | 9.7 | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/mmdetection_cpts/yolov3_d53_bigdet_8x.pth)/[config](big_detection/configs/BigDetection/yolov3/yolov3_d53_mstrain-608_8x_bigdet.py) |
+| Deformable DETR | 13.1 | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/mmdetection_cpts/deformable_detr_bigdet_8x.pth)/[config](big_detection/configs/BigDetection/deformable_detr/deformable_detr_r50_16x2_8x_bigdet.py) |
 | Faster R-CNN (C4)\* | 18.9 | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/detectron2_cpts/faster_rcnn_r50_c4_bigdet_8x.pth) |
 | Faster R-CNN (FPN)\* | 19.4 | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/detectron2_cpts/faster_rcnn_r50_fpn_bigdet_8x.pth) |
 | CenterNet2\* | 23.1 | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/detectron2_cpts/centernet2_r50_bigdet_8x.pth) |
 | Cascade R-CNN\* | 24.1 | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/detectron2_cpts/crcnn_r50_bigdet_8x.pth) |
-| CBNetV2-Swin-Base | 35.1 | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/mmdetection_cpts/htc_cbv2_swin_base_giou_4conv1f_bigdet.pth)/[config](configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_bigdet.py) |
+| CBNetV2-Swin-Base | 35.1 | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/mmdetection_cpts/htc_cbv2_swin_base_giou_4conv1f_bigdet.pth)/[config](big_detection/configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_bigdet.py) |
 
 ### COCO Validation
 We show the finetuning performance on COCO minival/test-dev. Results show that BigDetection pre-training provides significant benefits for different detector architectures. We achieve 59.8 mAP on COCO test-dev with a single model.
 
 | Method | mAP (coco minival/test-dev) | Links |
 | --- | :---: | :---: |
-| YOLOv3 | 30.5/- | [config](configs/BigDetection/yolov3/yolov3_d53_mstrain-608_8x_bigdet.py) |
-| Deformable DETR | 39.9/- | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/mmdetection_cpts/deformable_detr_bigdet_coco-ft_1x.pth)/[config](configs/BigDetection/deformable_detr/deformable_detr_r50_16x2_8x_bigdet.py) |
+| YOLOv3 | 30.5/- | [config](big_detection/configs/BigDetection/yolov3/yolov3_d53_mstrain-608_8x_bigdet.py) |
+| Deformable DETR | 39.9/- | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/mmdetection_cpts/deformable_detr_bigdet_coco-ft_1x.pth)/[config](big_detection/configs/BigDetection/deformable_detr/deformable_detr_r50_16x2_8x_bigdet.py) |
 | Faster R-CNN (C4)\* | 38.8/- | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/detectron2_cpts/faster_rcnn_r50_c4_bigdet_coco-ft_1x.pth) |
 | Faster R-CNN (FPN)\* | 40.5/- | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/detectron2_cpts/faster_rcnn_r50_fpn_bigdet_coco-ft_1x.pth) |
 | CenterNet2\* | 45.3/- | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/detectron2_cpts/centernet2_r50_bigdet_coco-ft_1x.pth) |
 | Cascade R-CNN\* | 45.1/- | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/detectron2_cpts/crcnn_r50_bigdet_coco-ft_1x.pth) |
-| CBNetV2-Swin-Base | **59.1**/**59.5** | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/mmdetection_cpts/htc_cbv2_swin_base_giou_4conv1f_bigdet_coco-ft_20e.pth)/[config](configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_bigdet.py) |
-| CBNetV2-Swin-Base (TTA) | **59.5**/**59.8** | [config](configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_bigdet.py) |
+| CBNetV2-Swin-Base | **59.1**/**59.5** | [model](https://big-detection.s3.us-west-2.amazonaws.com/bigdet_cpts/mmdetection_cpts/htc_cbv2_swin_base_giou_4conv1f_bigdet_coco-ft_20e.pth)/[config](big_detection/configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_bigdet.py) |
+| CBNetV2-Swin-Base (TTA) | **59.5**/**59.8** | [config](big_detection/configs/BigDetection/cbnetv2/htc_cbv2_swin_base_giou_4conv1f_adamw_bigdet.py) |
 
 ### Data Efficiency
 We followed [STAC](https://arxiv.org/abs/2005.04757) and [SoftTeacher](https://arxiv.org/abs/2106.09018) to evaluate on COCO for different partial annotation settings.
